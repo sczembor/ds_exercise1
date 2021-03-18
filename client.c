@@ -44,6 +44,21 @@ int main (int argc, char **argv)
         exit (1);
     }
     
+    char buffer[MAX_LINE],buffer1[MAX_LINE];
+    int err = 0;
+    int n;
+    while (err != -1) {
+        n = readLine(0, buffer, MAX_LINE);
+        if (n!=-1){
+            int msg;
+            msg=mq_send(qd_server,buffer,n+1,0);
+            printf("Message sent: %s\n",buffer);
+            if (msg < 0) {
+                perror("Error in sending msg");
+                exit(1);
+            }
+    
+    
     if (mq_close (qd_client) == -1) {
         perror ("Client: mq_close");
         exit (1);

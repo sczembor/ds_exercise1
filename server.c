@@ -37,6 +37,15 @@ int main(int argc, char **arv)
         exit (1);
     }
     
+    while(1){
+        if (mq_receive (qd_server, in_buffer, MSG_BUFFER_SIZE, NULL) == -1) {
+            perror ("Server: mq_receive");
+            exit (1);
+        }
+        
+        printf ("Server: message received.\n");
+    }
+    
     mq_close ("server-queue");
     
     return 0;
