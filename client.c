@@ -39,7 +39,7 @@ int main (int argc, char **argv)
         exit (1);
     }
     
-    if ((qd_server = mq_open (server-queue, O_WRONLY)) == -1) {
+    if ((qd_server = mq_open ("server-queue", O_WRONLY)) == -1) {
         perror ("Client: mq_open (server)");
         exit (1);
     }
