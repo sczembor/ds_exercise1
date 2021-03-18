@@ -48,7 +48,5 @@ int main(int argc, char **arv)
         printf ("Server: message received: %s\n",in_buffer);
     }
     
-    mq_close ("server-queue");
-    
     return 0;
 }
