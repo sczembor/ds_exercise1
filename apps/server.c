@@ -5,6 +5,7 @@
 //  Created by Jan Ferbr on 18/03/2021.
 //
 
+#include <mqueue.h>
 #include <netdb.h>
 #include <stdio.h>
 #include <string.h>
@@ -12,10 +13,6 @@
 #include <stdlib.h>
 #include <errno.h>
 #include "lib.h"
-
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <mqueue.h>
 
 #define QUEUE_PERMISSIONS 0660
 #define MAX_MESSAGES 10
