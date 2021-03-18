@@ -58,6 +58,7 @@ int main (int argc, char **argv)
                 exit(1);
             }
         }
+    }
     
     
     if (mq_close (qd_client) == -1) {
