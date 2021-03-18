@@ -32,12 +32,12 @@ int main(int argc, char **arv)
     attr.mq_msgsize = MAX_MSG_SIZE;
     attr.mq_curmsgs = 0;
     
-    if ((qd_server = mq_open ("example-server", O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
+    if ((qd_server = mq_open ("server-queue", O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
         perror ("Server: mq_open (server)");
         exit (1);
     }
     
-    int mq_close (SERVER_QUEUE_NAME);
+    mq_close (SERVER_QUEUE_NAME);
     
-    return 1;
+    return 0;
 }
