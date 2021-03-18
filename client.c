@@ -44,7 +44,7 @@ int main (int argc, char **argv)
         exit (1);
     }
     
-    char buffer[MAX_LINE],buffer1[MAX_LINE];
+    char buffer[MAX_MSG_SIZE],buffer1[MAX_MSG_SIZE];
     int err = 0;
     int n;
     while (err != -1) {
