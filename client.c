@@ -48,7 +48,7 @@ int main (int argc, char **argv)
     int err = 0;
     int n;
     while (err != -1) {
-        n = readLine(0, buffer, MAX_LINE);
+        n = readLine(0, buffer, MAX_MSG_SIZE);
         if (n!=-1){
             int msg;
             msg=mq_send(qd_server,buffer,n+1,0);
@@ -57,6 +57,7 @@ int main (int argc, char **argv)
                 perror("Error in sending msg");
                 exit(1);
             }
+        }
     
     
     if (mq_close (qd_client) == -1) {
