@@ -37,7 +37,7 @@ int main(int argc, char **arv)
         exit (1);
     }
     
-    mq_close (SERVER_QUEUE_NAME);
+    mq_close ("server-queue");
     
     return 0;
 }
