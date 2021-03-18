@@ -17,7 +17,6 @@
 #include <sys/stat.h>
 #include <mqueue.h>
 
-#define SERVER_QUEUE_NAME   '/sp-example-server'
 #define QUEUE_PERMISSIONS 0660
 #define MAX_MESSAGES 10
 #define MAX_MSG_SIZE 256
@@ -33,7 +32,7 @@ int main(int argc, char **arv)
     attr.mq_msgsize = MAX_MSG_SIZE;
     attr.mq_curmsgs = 0;
     
-    if ((qd_server = mq_open (SERVER_QUEUE_NAME, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
+    if ((qd_server = mq_open ("example-server", O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
         perror ("Server: mq_open (server)");
         exit (1);
     }
