@@ -32,6 +32,8 @@ int main(int argc, char **arv)
     attr.mq_msgsize = MAX_MSG_SIZE;
     attr.mq_curmsgs = 0;
     
+    char in_buffer [MSG_BUFFER_SIZE];
+    
     if ((qd_server = mq_open ("server-queue", O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
         perror ("Server: mq_open (server)");
         exit (1);
@@ -43,7 +45,7 @@ int main(int argc, char **arv)
             exit (1);
         }
         
-        printf ("Server: message received.\n");
+        printf ("Server: message received: %s\n",in_buffer);
     }
     
     mq_close ("server-queue");
