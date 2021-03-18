@@ -31,7 +31,7 @@ int main(int argc, char **arv)
     
     char in_buffer [MSG_BUFFER_SIZE];
     
-    if ((qd_server = mq_open ("server-queue", O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
+    if ((qd_server = mq_open ("/server-queue", O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
         perror ("Server: mq_open (server)");
         exit (1);
     }

@@ -26,7 +26,7 @@ int main (int argc, char **argv)
     char client_queue_name [64];
     mqd_t qd_server, qd_client;
     
-    sprintf (client_queue_name, "/sp-example-client-%d", getpid ());
+    sprintf (client_queue_name, "/client-queue-%d", getpid ());
     
     struct mq_attr attr;
     attr.mq_flags = 0;
@@ -39,7 +39,7 @@ int main (int argc, char **argv)
         exit (1);
     }
     
-    if ((qd_server = mq_open ("server-queue", O_WRONLY)) == -1) {
+    if ((qd_server = mq_open ("/server-queue", O_WRONLY)) == -1) {
         perror ("Client: mq_open (server)");
         exit (1);
     }
