@@ -19,10 +19,18 @@
 #define MAX_MSG_SIZE 256
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 
+//STRUCTS ----------------------------
+struct msgs {
+    char  key[255];
+    char  val1[255];
+    int  val2;
+    float   val3;
+};
 
+//MAIN -------------------------------- Funkce dělat -> otevřu, pošlu msg, zavřu
 int main (int argc, char **argv)
 {
-    
+    struct msgs mes1;
     char client_queue_name [64];
     mqd_t qd_server, qd_client;
     
@@ -48,10 +56,21 @@ int main (int argc, char **argv)
     int err = 0;
     int n;
     while (err != -1) {
+        printf("Please insert  the key:  (up to 255 char and confirm with /0 \n");
         n = readLine(0, buffer, MAX_MSG_SIZE);
+        mes1.key=buffer;
+        printf("Please insert  value1:  (up to 255 char and confirm with /0 \n");
+        n++ = readLine(0, buffer, MAX_MSG_SIZE);
+        mes1.val1=buffer;
+        printf("Please insert  value2:  (1 integer confirm with /0 \n");
+        n++ = readLine(0, buffer, MAX_MSG_SIZE);
+        mes1.val2=buffer;
+        printf("Please insert  the key:  (1 float confirm with /0 \n");
+        n++ = readLine(0, buffer, MAX_MSG_SIZE);
+        mes1.val3=buffer;
         if (n!=-1){
             int msg;
-            msg=mq_send(qd_server,buffer,n+1,0);
+            msg=mq_send(qd_server,msg,n+1,0);
             printf("Message sent: %s\n",buffer);
             if (msg < 0) {
                 perror("Error in sending msg");

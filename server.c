@@ -21,16 +21,28 @@
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 #define TRUE 1
 #define FALSE 0
+
+//STRUCTS ----------------------------
+struct msgs {
+    char  key[255];
+    char  val1[255];
+    int  val2;
+    float   val3;
+};
+
+//GLOBALS -----------------------------
 int busy;
 int kill;
 pthread_t thread;
 pthread_attr_t thread_attr;
 pthread_mutex_t mutex1;
 pthread_cond_t signal1;
+
+//FUNCTIONS  DECLARATIONS  -------------
 void manage_request (mqd_t *s) {
     kill=FALSE;
     pthread_mutex_lock(&mutex1);
-    char in_buffer[MAX_MSG_SIZE];
+    struct msgs in_buffer;
     int n;
     mqd_t qd_server=*s;
     
@@ -50,6 +62,7 @@ void manage_request (mqd_t *s) {
     }
 }
 
+//MAIN --------------------------------------
 int main(int argc, char **arv)
 {
     pthread_attr_init(&thread_attr);
