@@ -27,7 +27,7 @@ pthread_t thread;
 pthread_attr_t attr;
 pthread_mutex_t mutex1;
 pthread_cond_t signal1;
-void manage_request (mgd_t *s) {
+void manage_request (mqd_t *s) {
     kill=FALSE;
     pthread_mutex_lock(&mutex1);
     char in_buffer[MAX_MSG_SIZE];
