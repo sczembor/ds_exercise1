@@ -23,8 +23,8 @@
 struct msgs {
     char  key[255];
     char  val1[255];
-    int  val2;
-    int   val3;
+    char  val2[255];
+    char   val3[255];
 };
 
 //MAIN -------------------------------- Funkce dělat -> otevřu, pošlu msg, zavřu
