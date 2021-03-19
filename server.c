@@ -27,7 +27,7 @@ pthread_t thread;
 pthread_attr_t attr;
 pthread_mutex_t mutex1;
 pthread_cond_t signal1;
-void manage_request (int *s) {
+void manage_request (mgd_t *s) {
     kill=FALSE;
     pthread_mutex_lock(&mutex1);
     char in_buffer[MAX_MSG_SIZE];
@@ -71,7 +71,7 @@ int main(int argc, char **arv)
     
     
     while(1){
-        pthread_create(&thread,&attr,manage_request,&sc); //HERE!!!!!
+        pthread_create(&thread,&attr,manage_request,&qd_server); //HERE!!!!!
         pthread_mutex_lock(&mutex1);
         while(busy==TRUE){
             pthread_cond_wait(&mutex1,&signal1);
