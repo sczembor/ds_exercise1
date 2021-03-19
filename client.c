@@ -16,7 +16,7 @@
 
 #define QUEUE_PERMISSIONS 0660
 #define MAX_MESSAGES 10
-#define MAX_MSG_SIZE 1000000
+#define MAX_MSG_SIZE 10000
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 
 //STRUCTS ----------------------------
