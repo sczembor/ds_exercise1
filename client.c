@@ -58,19 +58,17 @@ int main (int argc, char **argv)
     while (err != -1) {
         printf("Please insert  the key:  (up to 255 char and confirm with /0 \n");
         n = readLine(0, buffer, MAX_MSG_SIZE);
-        mes1.key=buffer;
+        strcpy(mes1.key,buffer);
         printf("Please insert  value1:  (up to 255 char and confirm with /0 \n");
-        n++ = readLine(0, buffer, MAX_MSG_SIZE);
-        mes1.val1=buffer;
+        n = readLine(0, buffer, MAX_MSG_SIZE);
+        strcpy(mes1.val1,buffer);
         printf("Please insert  value2:  (1 integer confirm with /0 \n");
-        n++ = readLine(0, buffer, MAX_MSG_SIZE);
-        mes1.val2=buffer;
+        strcpy(mes1.val2,buffer);
         printf("Please insert  the key:  (1 float confirm with /0 \n");
-        n++ = readLine(0, buffer, MAX_MSG_SIZE);
-        mes1.val3=buffer;
+        strcpy(mes1.val3,buffer);
         if (n!=-1){
             int msg;
-            msg=mq_send(qd_server,(const char *)&msg,n+1,0);
+            msg=mq_send(qd_server,(const char *)&msg,MSG_BUFFER_SIZE,0);
             printf("Message sent: %s\n",buffer);
             if (msg < 0) {
                 perror("Error in sending msg");
