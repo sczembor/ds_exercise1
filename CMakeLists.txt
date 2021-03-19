@@ -10,3 +10,6 @@ if(LIBRT)
 target_link_libraries(server ${LIBRT})
 target_link_libraries(client ${LIBRT})
 endif()
+
+find_package (Threads)
+target_link_libraries (server ${CMAKE_THREAD_LIBS_INIT})
