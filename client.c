@@ -71,7 +71,7 @@ int main (int argc, char **argv)
         if (n!=-1){
             int msg;
             msg=mq_send(qd_server,(const char *)&msg,sizeof(mes1)+1,0);
-            printf("Message sent: %s\n",buffer);
+            printf("Message sent: %s\n",mes1);
             if (msg < 0) {
                 perror("Error in sending msg");
                 exit(1);
