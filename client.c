@@ -68,7 +68,7 @@ int main (int argc, char **argv)
         strcpy(mes1.val3,buffer);
         if (n!=-1){
             int msg;
-            msg=mq_send(qd_server,(const char *)&msg,MSG_BUFFER_SIZE,0);
+            msg=mq_send(qd_server,(const char *)&msg,MSG_BUFFER_SIZE*4,0);
             printf("Message sent: %s\n",buffer);
             if (msg < 0) {
                 perror("Error in sending msg");
