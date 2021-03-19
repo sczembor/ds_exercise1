@@ -17,7 +17,7 @@
 
 #define QUEUE_PERMISSIONS 0660
 #define MAX_MESSAGES 10
-#define MAX_MSG_SIZE 256
+#define MAX_MSG_SIZE 1024
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 #define TRUE 1
 #define FALSE 0
@@ -52,7 +52,7 @@ void manage_request (mqd_t *s) {
     pthread_mutex_unlock(&mutex1);
     
     while (1){
-        if (mq_receive (qd_server, (char*)&in_buffer, 1024, NULL) == -1) {
+        if (mq_receive (qd_server, (char*)&in_buffer, MAX_MSG_SIZE, NULL) == -1) {
             perror ("Server: mq_receive");
             exit (1);
         }
