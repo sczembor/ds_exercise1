@@ -24,7 +24,7 @@ struct msgs {
     char  key[255];
     char  val1[255];
     int  val2;
-    float   val3;
+    int   val3;
 };
 
 //MAIN -------------------------------- Funkce dělat -> otevřu, pošlu msg, zavřu
