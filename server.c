@@ -52,7 +52,7 @@ void manage_request (mqd_t *s) {
     pthread_mutex_unlock(&mutex1);
     
     while (1){
-        if (mq_receive (qd_server, in_buffer, MSG_BUFFER_SIZE, NULL) == -1) {
+        if (mq_receive (qd_server, (char*)&in_buffer, MSG_BUFFER_SIZE, NULL) == -1) {
             perror ("Server: mq_receive");
             exit (1);
         }

@@ -70,7 +70,7 @@ int main (int argc, char **argv)
         mes1.val3=buffer;
         if (n!=-1){
             int msg;
-            msg=mq_send(qd_server,msg,n+1,0);
+            msg=mq_send(qd_server,(const char *)&msg,n+1,0);
             printf("Message sent: %s\n",buffer);
             if (msg < 0) {
                 perror("Error in sending msg");
