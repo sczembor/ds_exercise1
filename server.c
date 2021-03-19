@@ -24,8 +24,8 @@
 
 //STRUCTS ----------------------------
 struct msgs {
-    char  key[255];
-    char  val1[255];
+    char  key[10];
+    char  val1[10];
     char  val2[10];
     char   val3[10];
 };
@@ -52,7 +52,7 @@ void manage_request (mqd_t *s) {
     pthread_mutex_unlock(&mutex1);
     
     while (1){
-        if (mq_receive (qd_server, (char*)&in_buffer, MSG_BUFFER_SIZE*4, NULL) == -1) {
+        if (mq_receive (qd_server, (char*)&in_buffer, MSG_BUFFER_SIZE, NULL) == -1) {
             perror ("Server: mq_receive");
             exit (1);
         }
