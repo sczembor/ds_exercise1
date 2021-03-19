@@ -21,10 +21,10 @@
 
 //STRUCTS ----------------------------
 struct msgs {
-    char  key[10];
-    char  val1[10];
-    char  val2[10];
-    char   val3[10];
+    char  key[255];
+    char  val1[255];
+    int  val2;
+    float   val3;
 };
 
 //MAIN -------------------------------- Funkce dělat -> otevřu, pošlu msg, zavřu
@@ -56,21 +56,10 @@ int main (int argc, char **argv)
     int err = 0;
     int n;
     while (err != -1) {
-        printf("Please insert  the key:  (up to 255 char and confirm with /0 \n");
-        n = readLine(0, buffer, MAX_MSG_SIZE);
-        strcpy(mes1.key,buffer);
-        printf("Please insert  value1:  (up to 255 char and confirm with /0 \n");
-        n = readLine(0, buffer, MAX_MSG_SIZE);
-        strcpy(mes1.val1,buffer);
-        printf("Please insert  value2:  (1 integer confirm with /0 \n");
-        n = readLine(0, buffer, MAX_MSG_SIZE);
-        strcpy(mes1.val2,buffer);
-        printf("Please insert  the key:  (1 float confirm with /0 \n");
-        n = readLine(0, buffer, MAX_MSG_SIZE);
-        strcpy(mes1.val3,buffer);
+        scanf("%s %s %i %f", mes1.key, mes1.val1, &mes1.val2, &mes1.val3);
         if (n!=-1){
             int msg;
-            msg=mq_send(qd_server,(const char *)&msg,sizeof(mes1)+1,0);
+            msg=mq_send(qd_server,(const char *)&mes1,sizeof(mes1)+1,0);
             printf("Message sent: %s\n",mes1);
             if (msg < 0) {
                 perror("Error in sending msg");

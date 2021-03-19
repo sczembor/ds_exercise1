@@ -24,10 +24,10 @@
 
 //STRUCTS ----------------------------
 struct msgs {
-    char  key[10];
-    char  val1[10];
-    char  val2[10];
-    char   val3[10];
+    char  key[255];
+    char  val1[255];
+    int  val2;
+    float   val3;
 };
 
 //GLOBALS -----------------------------
@@ -57,7 +57,7 @@ void manage_request (mqd_t *s) {
             exit (1);
         }
         
-        printf ("Server: message received: %s,%s,%s,%s\n",in_buffer.key, in_buffer.val1, in_buffer.val2, in_buffer.val3);
+        printf ("Server: message received: %s,%s,%i,%f\n",in_buffer.key, in_buffer.val1, in_buffer.val2, in_buffer.val3);
         
     }
 }
