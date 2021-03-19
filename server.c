@@ -32,6 +32,7 @@ void manage_request (mqd_t *s) {
     pthread_mutex_lock(&mutex1);
     char in_buffer[MAX_MSG_SIZE];
     int n;
+    mqd_t qd_server=*s;
     
     printf("thread connected as well GJ\n");
     busy=FALSE;
