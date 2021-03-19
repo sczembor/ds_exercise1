@@ -17,15 +17,15 @@
 
 #define QUEUE_PERMISSIONS 0660
 #define MAX_MESSAGES 10
-#define MAX_MSG_SIZE 10000
+#define MAX_MSG_SIZE 1024
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 #define TRUE 1
 #define FALSE 0
 
 //STRUCTS ----------------------------
 struct msgs {
-    char  key[255];
-    char  val1[255];
+    char  key[10];
+    char  val1[10];
     int  val2;
     float   val3;
 };
