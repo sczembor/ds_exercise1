@@ -26,8 +26,8 @@
 struct msgs {
     char  key[255];
     char  val1[255];
-    char  val2[255];
-    char   val3[255];
+    char  val2[10];
+    char   val3[10];
 };
 
 //GLOBALS -----------------------------
