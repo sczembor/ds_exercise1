@@ -77,7 +77,7 @@ int main(int argc, char **arv)
     attr.mq_maxmsg = MAX_MESSAGES;
     attr.mq_msgsize = MAX_MSG_SIZE;
     attr.mq_curmsgs = 0;
-    
+    printf("opening queue\n");
     if ((qd_server = mq_open ("/server-queue", O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
         perror ("Server: mq_open (server)");
         exit (1);
@@ -85,6 +85,7 @@ int main(int argc, char **arv)
     
     
     while(1){
+        printf("creating  thread\n");
         pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
         pthread_mutex_lock(&mutex1);
         while(busy==TRUE){
