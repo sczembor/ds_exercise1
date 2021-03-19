@@ -52,8 +52,8 @@ void manage_request (mqd_t *s) {
 
 int main(int argc, char **arv)
 {
-    pthread_attr_init(&attr);
-    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
+    pthread_attr_init(&thread_attr);
+    pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_DETACHED);
     pthread_mutex_init(&mutex1,NULL);
     pthread_cond_init(&signal1,NULL);
     
