@@ -120,12 +120,12 @@ int main(int argc, char **arv)
             perror("mq_notify");
         }
         //printf("valueof sc is: %i\n",sc);
-        pthread_mutex_lock(&mutex1);
+        pthread_mutex_lock(&mutex2);
         printf("mutex1 locked in main\n");
         while(busy==TRUE){
-            pthread_cond_wait(&mutex1,&signal1);
+            pthread_cond_wait(&mutex2,&signal1);
         }
-        pthread_mutex_unlock(&mutex1);
+        pthread_mutex_unlock(&mutex2);
         busy=TRUE;
         
         //pthread_cond_wait(&mutex2,&signal1);
