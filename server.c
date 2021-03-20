@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <pthread.h>
+#include <signal.h>
 #include "lib.h"
 
 #define QUEUE_PERMISSIONS 0660
@@ -52,7 +53,7 @@ int numElements();
 
 
 
-static void manage_request (mqd_t *s) {
+void manage_request (mqd_t *s) {
     kill=FALSE;
     printf("thread connected as well GJ1\n");
     struct Element in_buffer;
@@ -87,6 +88,8 @@ int main(int argc, char **arv)
     
     mqd_t qd_server, qd_client;
     
+    sev.sigev_notify = SIGEV_NONE;
+    
     struct mq_attr attr;
     attr.mq_flags = 0;
     attr.mq_maxmsg = MAX_MESSAGES;
@@ -100,12 +103,7 @@ int main(int argc, char **arv)
         exit (1);
     }
     
-    sev.sigev_notify = SIGEV_THREAD;
-    sev.sigev_notify_function = manage_request;
-    sev.sigev_notify_attributes = NULL;
-    sev.sigev_value.sival_ptr = &qd_server;
-    
-    
+
     while(1){
         int new_mes=mq_notify("/server-queue",&sev);
         printf("creating  thread because of new message\n");
