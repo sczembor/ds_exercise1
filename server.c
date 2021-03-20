@@ -108,7 +108,7 @@ int main(int argc, char **arv)
     while(1){
         printf("creating  thread\n");
         pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
-        pthread_cond_wait(&mutex2,&signal1);
+        //pthread_cond_wait(&mutex2,&signal1);
         
         pthread_mutex_lock(&mutex1);
         while(busy==TRUE){
