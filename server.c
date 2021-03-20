@@ -36,7 +36,7 @@ int busy;
 int kill;
 pthread_t thread;
 pthread_attr_t thread_attr;
-pthread_mutex_t mutex1;
+pthread_mutex_t mutex1,mutex2;
 pthread_cond_t signal1;
 struct Element* pHead = NULL;
 
@@ -88,6 +88,7 @@ int main(int argc, char **arv)
     pthread_attr_init(&thread_attr);
     pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_DETACHED);
     pthread_mutex_init(&mutex1,NULL);
+    pthread_mutex_init(&mutex2,NULL);
     pthread_cond_init(&signal1,NULL);
     
     mqd_t qd_server, qd_client;
@@ -107,11 +108,11 @@ int main(int argc, char **arv)
     while(1){
         printf("creating  thread\n");
         pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
-        pthread_cond_wait(&mutex1,&signal1);
+        pthread_cond_wait(&mutex2,&signal1);
         
         pthread_mutex_lock(&mutex1);
         while(busy==TRUE){
-            pthread_cond_wait(&mutex1,&signal1);
+            pthread_cond_wait(&mutex2,&signal1);
         }
         pthread_mutex_unlock(&mutex1);
         busy=TRUE;
