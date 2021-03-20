@@ -104,7 +104,8 @@ int main(int argc, char **arv)
     
     sev.sigev_notify = SIGEV_NONE;
 
-    busy = TRUE;
+    if (mq_notify(qd_server, &sev) == -1)
+        perror("mq_notify");
     while(1){
         //int new_mes=mq_notify("/server-queue",&sev);
         
