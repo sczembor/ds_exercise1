@@ -111,7 +111,7 @@ int main(int argc, char **arv)
             perror("mq_getattr");
         
         printf("number of messages in queue is %i\n",attr.mq_curmsgs);
-        wait(10);
+        wait(1000);
         
         if (attr.mq_curmsgs>0){
             printf("creating  thread because buffer not empty\n");
