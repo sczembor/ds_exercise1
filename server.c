@@ -52,7 +52,7 @@ int numElements();
 
 
 
-void manage_request (mqd_t *s) {
+static void manage_request (mqd_t *s) {
     kill=FALSE;
     printf("thread connected as well GJ1\n");
     struct Element in_buffer;
@@ -87,20 +87,25 @@ int main(int argc, char **arv)
     
     mqd_t qd_server, qd_client;
     
-    sev.sigev_notify = SIGEV_NONE;
-    
     struct mq_attr attr;
     attr.mq_flags = 0;
     attr.mq_maxmsg = MAX_MESSAGES;
     attr.mq_msgsize = MAX_MSG_SIZE;
     attr.mq_curmsgs = 0;
+    
+    
     printf("opening queue\n");
     if ((qd_server = mq_open ("/server-queue", O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
         perror ("Server: mq_open (server)");
         exit (1);
     }
     
-
+    sev.sigev_notify = SIGEV_THREAD;
+    sev.sigev_notify_function = manage_request;
+    sev.sigev_notify_attributes = NULL;
+    sev.sigev_value.sival_ptr = &qd_server;
+    
+    
     while(1){
         int new_mes=mq_notify("/server-queue",&sev);
         printf("creating  thread because of new message\n");
