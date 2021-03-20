@@ -122,7 +122,7 @@ int main(int argc, char **arv)
         if (attr.mq_curmsgs>0 && i<10){
             printf("number of messages in queue is %i\n",attr.mq_curmsgs);
             printf("creating thread because buffer not empty\n");
-            //pthread_create(&thread[i],&thread_attr,manage_request,&qd_server);
+            pthread_create(&thread[i],&thread_attr,manage_request,&qd_server);
             pthread_mutex_lock(&mutex1);
             i++;
             writing=FALSE;
