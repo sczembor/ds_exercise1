@@ -35,7 +35,8 @@ struct Element{
 
 //GLOBALS -----------------------------
 int busy;
-pthread_t thread;
+int i=0;
+pthread_t thread[10];
 pthread_attr_t thread_attr;
 pthread_mutex_t mutex1,mutex2;
 pthread_cond_t signal1;
@@ -52,7 +53,7 @@ int numElements();
 
 
 
-static void manage_request (mqd_t *s) {
+void manage_request (mqd_t *s) {
     
     printf("thread connected as well GJ1\n");
     struct Element in_buffer;
@@ -72,6 +73,9 @@ static void manage_request (mqd_t *s) {
     pthread_mutex_unlock(&mutex1);
     busy = FALSE;
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
+    i--;
+    printf("number of threads is %i, exiting thread",i);
+    pthread_exit(&thread);
 }
 
 //MAIN --------------------------------------
@@ -101,33 +105,25 @@ int main(int argc, char **arv)
         perror ("Server: mq_open (server)");
         exit (1);
     }
-    
-    sev.sigev_notify = SIGEV_NONE;
 
-    if (mq_notify(qd_server, &sev) == -1)
-        perror("mq_notify");
-    while(1){
-        //int new_mes=mq_notify("/server-queue",&sev);
+    while(i<10){
+        int mq_getattr(qd_server, &attr);
+        printf("number of messages in queue is %i",attr.mq_curmsgs);
+        wait(10);
         
-        printf("creating  thread because of new message\n");
-        if (mq_notify(qd_server, &sev) == -1)
-            perror("mq_notify");
-        else{
-            pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
+        if (attr.mq_curmsgs>0){
+            printf("creating  thread because buffer not empty\n");
+            pthread_create(&thread[i],&thread_attr,manage_request,&qd_server);
+            i++
+            pthread_mutex_lock(&mutex1);
+            printf("mutex1 locked in main\n");
+            while(busy==TRUE){
+                pthread_cond_wait(&mutex1,&signal1);
+            }
+            pthread_mutex_unlock(&mutex1);
+            busy=TRUE;
         }
-        
-        pthread_cond_wait(&mutex2,&signal1);
-        
-        pthread_mutex_lock(&mutex1);
-        printf("mutex1 locked in main\n");
-        while(busy==TRUE){
-            pthread_cond_wait(&mutex1,&signal1);
-        }
-        pthread_mutex_unlock(&mutex1);
-        
-        busy=TRUE;
     }
-    
     return 0;
 }
 
