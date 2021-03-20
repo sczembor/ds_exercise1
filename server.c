@@ -59,6 +59,7 @@ void manage_request (mqd_t *s) {
     struct Element in_buffer;
     int n;
     
+    pthread_cond_wait(&mutex1,&signal1);
     pthread_mutex_lock(&mutex1);
     printf("thread connected as well GJ2\n");
     mqd_t qd_server=*s;
@@ -70,7 +71,6 @@ void manage_request (mqd_t *s) {
         exit (1);
     }
     i--;
-    pthread_cond_signal(&signal1);
     pthread_mutex_unlock(&mutex1);
     busy = FALSE;
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
@@ -117,12 +117,11 @@ int main(int argc, char **arv)
             printf("number of messages in queue is %i\n",attr.mq_curmsgs);
             printf("creating thread because buffer not empty\n");
             pthread_create(&thread[i],&thread_attr,manage_request,&qd_server);
-            //pthread_cond_wait(&mutex2,&signal1);
             pthread_mutex_lock(&mutex1);
             i++;
             pthread_mutex_unlock(&mutex1);
+            pthread_cond_signal(&signal1);
             //printf("mutex1 locked in main\n");
-            pthread_cond_wait(&mutex1,&signal1);
         }
     }
     return 0;
