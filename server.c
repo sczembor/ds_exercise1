@@ -108,12 +108,16 @@ int main(int argc, char **arv)
     sev.sigev_notify_attributes = NULL;
     sev.sigev_value.sival_ptr = &qd_server;
 
+    if (mq_notify(qd_server, &sev) == -1){
+        perror("mq_notify");
+    }
+    /*
     while(1){
         //int new_mes=mq_notify("/server-queue",&sev);
         
         printf("creating  thread because of new message\n");
         int sc=mq_notify(qd_server, &sev);
-        if (sc == -1){
+        if (mq_notify(qd_server, &sev) == -1){
             perror("mq_notify");
         }
         printf("valueof sc is: %i\n",sc);
@@ -128,6 +132,7 @@ int main(int argc, char **arv)
         }
         //pthread_cond_wait(&mutex2,&signal1);
     }
+     */
     
     return 0;
 }
