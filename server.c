@@ -72,10 +72,10 @@ void manage_request (mqd_t *s) {
     }
     i--;
     pthread_mutex_unlock(&mutex1);
-    //pthread_cond_signal(&signal1);
     busy = FALSE;
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     printf("number of running threads is %i\nexiting thread!\n",i);
+    pthread_cond_signal(&signal1);
     pthread_exit(&thread[i+1]);
 }
 
@@ -122,7 +122,7 @@ int main(int argc, char **arv)
             i++;
             pthread_mutex_unlock(&mutex1);
             //pthread_cond_signal(&signal1);
-            //pthread_cond_wait(&mutex2,&signal1);
+            pthread_cond_wait(&mutex2,&signal1);
             //printf("mutex1 locked in main\n");
         }
     }
