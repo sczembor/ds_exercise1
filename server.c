@@ -127,7 +127,7 @@ int main(int argc, char **arv)
         }
         pthread_mutex_unlock(&mutex1);
         busy=TRUE;
-        }
+        
         //pthread_cond_wait(&mutex2,&signal1);
     }
     
