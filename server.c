@@ -113,7 +113,7 @@ int main(int argc, char **arv)
     }
     
     while(1){
-        int new_mes=mq_notify("/server-queue",&sev);
+        int new_mes=mq_notify(qd_server,&sev);
         
         printf("creating  thread because of new message\n");
         if (new_mes == -1){
