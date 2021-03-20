@@ -57,7 +57,11 @@ void manage_request (mqd_t *s) {
     printf("thread connected as well GJ2\n");
     struct Element in_buffer;
     int n;
+    
+    pthread_mutex_lock(&mutex1);
     mqd_t qd_server=*s;
+    pthread_cond_signal(&signal1);
+    pthread_mutex_unlock(&mutex1);
     
     printf("thread connected as well GJ3\n");
     busy=FALSE;
@@ -70,7 +74,7 @@ void manage_request (mqd_t *s) {
         }
         pthread_cond_signal(&signal1);
         pthread_mutex_unlock(&mutex1);
-        busy=FALSE;
+        busy = FALSE;
         printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
         
     }
@@ -104,14 +108,14 @@ int main(int argc, char **arv)
         printf("creating  thread\n");
         pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
         pthread_cond_wait(&mutex1,&signal1);
-        /*
+        
         pthread_mutex_lock(&mutex1);
         while(busy==TRUE){
             pthread_cond_wait(&mutex1,&signal1);
         }
         pthread_mutex_unlock(&mutex1);
         busy=TRUE;
-        */
+        
         if (kill==TRUE){
             exit(1);
         }
