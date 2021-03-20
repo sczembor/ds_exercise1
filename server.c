@@ -122,7 +122,7 @@ int main(int argc, char **arv)
             i++;
             pthread_mutex_unlock(&mutex1);
             pthread_cond_signal(&signal1);
-            pthread_cond_wait(&mutex2,signal1);
+            pthread_cond_wait(&mutex2,&signal1);
             //printf("mutex1 locked in main\n");
         }
     }
