@@ -68,7 +68,7 @@ void manage_request (mqd_t *s) {
             exit (1);
         }
         
-        printf ("Server: message received: %s,%s,%i,%f\n",in_buffer.key, in_buffer.val1, in_buffer.val2, in_buffer.val3);
+        printf ("Server: message received: %s,%s,%i,%f\n",in_buffer.key, in_buffer.value1, in_buffer.value2, in_buffer.value3);
         
     }
 }
