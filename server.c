@@ -111,7 +111,7 @@ int main(int argc, char **arv)
         //int new_mes=mq_notify("/server-queue",&sev);
         
         printf("creating  thread because of new message\n");
-        if (mq_notify(mqdes, &sev) == -1)
+        if (mq_notify(qd_server, &sev) == -1)
             perror("mq_notify");
         
         //pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
