@@ -119,7 +119,7 @@ int main(int argc, char **arv)
         if (new_mes == -1){
             perror("mq_notify");
         }
-        printf("valueof sc is: %i\n",sc);
+        //printf("valueof sc is: %i\n",sc);
         pthread_mutex_lock(&mutex1);
         printf("mutex1 locked in main\n");
         while(busy==TRUE){
