@@ -128,11 +128,13 @@ int main(int argc, char **arv)
             i++;
             writing=FALSE;
             pthread_cond_signal(&signal1);
+            /*
             while (busy=TRUE){
                 //printf("Waiting for recieving message\n");
                 pthread_cond_wait(&mutex1,&signal2);
             }
             busy=TRUE;
+            */
             printf("MUTEX UNLOCKED IN MAIN! and SIGNAL SENT\n");
             pthread_mutex_unlock(&mutex1);
             //printf("mutex1 locked in main\n");
