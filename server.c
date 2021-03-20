@@ -35,11 +35,12 @@ struct Element{
 
 //GLOBALS -----------------------------
 int busy;
+int writing;
 int i=0;
 pthread_t thread[10];
 pthread_attr_t thread_attr;
 pthread_mutex_t mutex1,mutex2;
-pthread_cond_t signal1;
+pthread_cond_t signal1,signal2;
 struct Element* pHead = NULL;
 
 //FUNCTIONS  DECLARATIONS  -------------
@@ -58,8 +59,10 @@ void manage_request (mqd_t *s) {
     printf("thread connected as well GJ1\n");
     struct Element in_buffer;
     int n;
-    
-    //pthread_cond_wait(&mutex1,&signal1);
+    while (writing=TRUE){
+        pthread_cond_wait(&mutex1,&signal1);
+    }
+    writing=TRUE;
     pthread_mutex_lock(&mutex1);
     printf("thread connected as well GJ2\n");
     mqd_t qd_server=*s;
@@ -71,6 +74,7 @@ void manage_request (mqd_t *s) {
         exit (1);
     }
     i--;
+    pthread_cond_signal(&signal1);
     pthread_mutex_unlock(&mutex1);
     busy = FALSE;
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
@@ -89,6 +93,7 @@ int main(int argc, char **arv)
     pthread_mutex_init(&mutex1,NULL);
     pthread_mutex_init(&mutex2,NULL);
     pthread_cond_init(&signal1,NULL);
+    pthread_cond_init(&signal2,NULL);
     
     mqd_t qd_server, qd_client;
     
@@ -107,6 +112,7 @@ int main(int argc, char **arv)
         exit (1);
     }
     busy=TRUE;
+    writing=TRUE;
     while(1){
         if (mq_getattr(qd_server, &attr) == -1)
             perror("mq_getattr");
@@ -121,8 +127,12 @@ int main(int argc, char **arv)
             pthread_mutex_lock(&mutex1);
             i++;
             pthread_mutex_unlock(&mutex1);
-            //pthread_cond_signal(&signal1);
-            pthread_cond_wait(&mutex2,&signal1);
+            pthread_cond_signal(&signal1);
+            writing=FALSE;
+            while (busy=TRUE){
+                pthread_cond_wait(&mutex1,&signal2);
+            }
+            busy=TRUE;
             //printf("mutex1 locked in main\n");
         }
     }
