@@ -75,7 +75,7 @@ void manage_request (mqd_t *s) {
         exit (1);
     }
     i--;
-    pthread_cond_signal(&signal1);
+    pthread_cond_signal(&signal2);
     pthread_mutex_unlock(&mutex1);
     busy = FALSE;
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
