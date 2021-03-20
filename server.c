@@ -68,7 +68,6 @@ static void manage_request (mqd_t *s) {
         perror ("Server: mq_receive");
         exit (1);
     }
-    pthread_cond_signal(&signal1);
     pthread_mutex_unlock(&mutex1);
     busy = FALSE;
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
@@ -113,11 +112,6 @@ int main(int argc, char **arv)
         printf("creating  thread because of new message\n");
         if (mq_notify(qd_server, &sev) == -1)
             perror("mq_notify");
-        
-        while(busy==TRUE){
-            pthread_cond_wait(&mutex1,&signal1);
-        }
-        busy=TRUE;
     }
     
     return 0;
