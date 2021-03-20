@@ -20,11 +20,12 @@
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 
 //STRUCTS ----------------------------
-struct msgs {
-    char  key[10];
-    char  val1[10];
-    int   val2;
-    float  val3;
+struct msgs{
+    char* key;
+    char* val1;
+    int val2;
+    float val3;
+    struct msgs* pNext;
 };
 
 //MAIN -------------------------------- Funkce dělat -> otevřu, pošlu msg, zavřu
@@ -62,12 +63,6 @@ int main (int argc, char **argv)
                 exit(1);
             }
         }
-    }
-    
-    
-    if (mq_close (qd_client) == -1) {
-        perror ("Client: mq_close");
-        exit (1);
     }
     
     if (mq_unlink (client_queue_name) == -1) {

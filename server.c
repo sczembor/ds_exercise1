@@ -28,7 +28,7 @@ struct Element{
     char* value1;
     int value2;
     float value3;
-    //struct Element* pNext;
+    struct Element* pNext;
     };
 
 //GLOBALS -----------------------------
@@ -114,7 +114,7 @@ int main(int argc, char **arv)
     
     return 0;
 }
-/*
+
 int addNode(char* key, char* value1, int* value2, float* value3)
 {
     struct Element* new = (struct Element*)malloc(sizeof(struct Element));
@@ -200,4 +200,4 @@ int numElements()
     }
     return num;//element does not exsist
 }
-*/
+
