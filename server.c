@@ -108,7 +108,6 @@ int main(int argc, char **arv)
     sev.sigev_notify_attributes = NULL;
     sev.sigev_value.sival_ptr = &qd_server;
 
-    busy = TRUE;
     while(1){
         //int new_mes=mq_notify("/server-queue",&sev);
         
