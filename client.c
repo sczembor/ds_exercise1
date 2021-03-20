@@ -15,7 +15,7 @@
 #include "lib.h"
 
 #define QUEUE_PERMISSIONS 0660
-#define MAX_MESSAGES 10
+#define MAX_MESSAGES 50
 #define MAX_MSG_SIZE 1024
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 
@@ -23,8 +23,8 @@
 struct msgs {
     char  key[10];
     char  val1[10];
-    int  val2;
-    float   val3;
+    int   val2;
+    float  val3;
 };
 
 //MAIN -------------------------------- Funkce dělat -> otevřu, pošlu msg, zavřu

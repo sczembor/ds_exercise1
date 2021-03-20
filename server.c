@@ -16,7 +16,7 @@
 #include "lib.h"
 
 #define QUEUE_PERMISSIONS 0660
-#define MAX_MESSAGES 10
+#define MAX_MESSAGES 50
 #define MAX_MSG_SIZE 1024
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 #define TRUE 1
@@ -83,7 +83,7 @@ int main(int argc, char **arv)
         exit (1);
     }
     
-    
+    busy=TRUE;
     while(1){
         printf("creating  thread\n");
         pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
