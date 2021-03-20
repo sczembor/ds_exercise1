@@ -69,7 +69,7 @@ void manage_request (mqd_t *s) {
         perror ("Server: mq_receive");
         exit (1);
     }
-    //pthread_cond_signal(&signal1);
+    pthread_cond_signal(&signal1);
     pthread_mutex_unlock(&mutex1);
     //busy = FALSE;
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
@@ -118,7 +118,8 @@ int main(int argc, char **arv)
             printf("creating thread because buffer not empty\n");
             pthread_create(&thread[i],&thread_attr,manage_request,&qd_server);
             i++;
-            //pthread_mutex_lock(&mutex1);
+            pthread_cond_wait(&mutex2,&signal1);
+            //pthread_mutex_lock(&mutex2);
             //printf("mutex1 locked in main\n");
             //while(busy==TRUE){
             //    pthread_cond_wait(&mutex1,&signal1);
