@@ -53,7 +53,7 @@ int main (int argc, char **argv)
     int err = 0;
     int n;
     while (err != -1) {
-        scanf("%s %s %i %f", mes1.key, mes1.val1, &mes1.val2, &mes1.val3);
+        scanf("%s %s %i %f", &mes1.key, &mes1.val1, &mes1.val2, &mes1.val3);
         if (n!=-1){
             int msg;
             msg=mq_send(qd_server,(const char *)&mes1,sizeof(mes1)+1,0);
