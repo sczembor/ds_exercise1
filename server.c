@@ -23,12 +23,12 @@
 #define FALSE 0
 
 //STRUCTS ----------------------------
-struct msgs {
-    char  key[10];
-    char  val1[10];
-    int  val2;
-    float   val3;
-};
+struct Element{
+    char* key;
+    char* value1;
+    int value2;
+    float value3;
+    struct Element* pNext;};
 
 //GLOBALS -----------------------------
 int busy;
@@ -39,6 +39,16 @@ pthread_mutex_t mutex1;
 pthread_cond_t signal1;
 
 //FUNCTIONS  DECLARATIONS  -------------
+int addNode(char* key, char* value1, int* value2, float* value3);
+int modifyNode(char* key, char* value1, int* value2, float* value3);
+int deleteList();
+int searchList(char* key);
+int deleteElement(char* key);
+struct Element* getValue(char* key);
+int numElements();
+
+
+
 void manage_request (mqd_t *s) {
     kill=FALSE;
     pthread_mutex_lock(&mutex1);
@@ -65,6 +75,9 @@ void manage_request (mqd_t *s) {
 //MAIN --------------------------------------
 int main(int argc, char **arv)
 {
+    struct Element* pHead = NULL;
+    
+    
     pthread_attr_init(&thread_attr);
     pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_DETACHED);
     pthread_mutex_init(&mutex1,NULL);
@@ -99,4 +112,89 @@ int main(int argc, char **arv)
     }
     
     return 0;
+}
+int addNode(char* key, char* value1, int* value2, float* value3)
+{
+    new = (struct Element*)malloc(sizeof(struct Element));
+    new->key = key;
+    new->value1 = value1;
+    new->value2 = value2;
+    new->value3 = value3;
+    new->pNext = pHead;
+    pHead = new;
+}
+int deleteList()
+{
+    struct Element* tmp = NULL;
+    while(pHead){
+        tmp = pNext->pNext;
+        free(pHead)
+        pHead = tmp;
+    }
+}
+int searchList(char* key)
+{
+    struct Element* tmp = pHead;
+    while(tmp)
+    {
+        if(!strcmp(key, tmp->key))
+            return 1;
+        tmp = tmp->pNext
+    }
+    return 0;//element does not exsist
+}
+struct Element* getValue(char* key)
+{
+    struct Element* tmp = pHead;
+    while(tmp)
+    {
+        if(!strcmp(key, tmp->key))
+            return tmp;
+        tmp = tmp->pNext
+    }
+    return NULL;//element does not exsist
+}
+int modifyNode(char* key, char* value1, int* value2, float* value3)
+{
+    struct Element* tmp = pHead;
+    while(tmp)
+    {
+        if(!strcmp(key, tmp->key))
+        {
+            tmp->value1 = value1;
+            tmp->value2 = value2;
+            tmp->value3 = value3;
+        }
+        tmp = tmp->pNext
+    }
+    return NULL;//element does not exsist
+}
+int deleteElement(char* key)
+{
+    struct Element* prev = NULL;
+    struct Element* tmp = pHead;
+    while(tmp)
+    {
+        if(!strcmp(key, tmp->key))
+        {
+            if(prev)
+                prev->pNext = tmp->pNext;
+            free(tmp);
+            return 0;
+        }
+        prev = tmp;
+        tmp = tmp->pNext
+    }
+    return -1;//element does not exsist
+}
+int numElements()
+{
+    int num = 0;
+    struct Element* tmp = pHead;
+    while(tmp)
+    {
+        num = num + 1;
+        tmp = tmp->pNext
+    }
+    return num;//element does not exsist
 }
