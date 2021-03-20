@@ -53,7 +53,7 @@ int numElements();
 void manage_request (mqd_t *s) {
     kill=FALSE;
     pthread_mutex_lock(&mutex1);
-    
+    struct Element in_buffer;
     int n;
     mqd_t qd_server=*s;
     
@@ -118,8 +118,8 @@ int addNode(char* key, char* value1, int* value2, float* value3)
     struct Element* new = (struct Element*)malloc(sizeof(struct Element));
     new->key = key;
     new->value1 = value1;
-    new->value2 = value2;
-    new->value3 = value3;
+    new->value2 = *value2;
+    new->value3 = *value3;
     new->pNext = pHead;
     pHead = new;
 }
