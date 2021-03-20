@@ -24,8 +24,8 @@
 
 //STRUCTS ----------------------------
 struct Element{
-    char key[10];
-    char val1[10];
+    char* key;
+    char* value1;
     int value2;
     float value3;
     struct Element* pNext;
@@ -69,7 +69,7 @@ void manage_request (mqd_t *s) {
             exit (1);
         }
         
-        printf ("Server: message received: %s,%s,%i,%f\n",in_buffer.key, in_buffer.value1, in_buffer.value2, in_buffer.value3);
+        printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
         
     }
 }
