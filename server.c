@@ -107,10 +107,6 @@ int main(int argc, char **arv)
     sev.sigev_notify_function = manage_request;
     sev.sigev_notify_attributes = NULL;
     sev.sigev_value.sival_ptr = &qd_server;
-
-    if (mq_notify(qd_server, &sev) == -1){
-        perror("mq_notify");
-    }
     
     while(1){
         int new_mes=mq_notify(qd_server,&sev);
