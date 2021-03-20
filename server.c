@@ -24,6 +24,7 @@
 
 //STRUCTS ----------------------------
 struct Element{
+    int type;
     char* key;
     char* value1;
     int value2;
@@ -60,24 +61,17 @@ void manage_request (mqd_t *s) {
     pthread_mutex_lock(&mutex1);
     printf("thread connected as well GJ2\n");
     mqd_t qd_server=*s;
-    pthread_cond_signal(&signal1);
-    pthread_mutex_unlock(&mutex1);
     
     printf("thread connected as well GJ3\n");
-    busy=FALSE;
     
-    while (1){
-        pthread_mutex_lock(&mutex1);
-        if (mq_receive (qd_server, (char*)&in_buffer, MAX_MSG_SIZE, NULL) == -1) {
-            perror ("Server: mq_receive");
-            exit (1);
-        }
-        pthread_cond_signal(&signal1);
-        pthread_mutex_unlock(&mutex1);
-        busy = FALSE;
-        printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
-        
+    if (mq_receive (qd_server, (char*)&in_buffer, MAX_MSG_SIZE, NULL) == -1) {
+        perror ("Server: mq_receive");
+        exit (1);
     }
+    pthread_cond_signal(&signal1);
+    pthread_mutex_unlock(&mutex1);
+    busy = FALSE;
+    printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
 }
 
 //MAIN --------------------------------------
@@ -106,15 +100,16 @@ int main(int argc, char **arv)
     
 
     while(1){
-        printf("creating  thread\n");
+        int new_mes=mq_notify("/server-queue",SIGEV_NONE);
+        printf("creating  thread because of new message\n");
         pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
         //pthread_cond_wait(&mutex2,&signal1);
         
-        pthread_mutex_lock(&mutex2);
+        pthread_mutex_lock(&mutex1);
         while(busy==TRUE){
-            pthread_cond_wait(&mutex2,&signal1);
+            pthread_cond_wait(&mutex1,&signal1);
         }
-        pthread_mutex_unlock(&mutex2);
+        pthread_mutex_unlock(&mutex1);
         busy=TRUE;
         
         if (kill==TRUE){

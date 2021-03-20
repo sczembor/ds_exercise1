@@ -21,6 +21,7 @@
 
 //STRUCTS ----------------------------
 struct msgs{
+    int type;
     char* key;
     char* val1;
     int val2;
