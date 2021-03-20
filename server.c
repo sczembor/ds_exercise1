@@ -117,7 +117,7 @@ int main(int argc, char **arv)
         if (sc == -1){
             perror("mq_notify");
         }
-        
+        printf("valueof sc is: %i\n",sc);
         //pthread_cond_wait(&mutex2,&signal1);
         
         pthread_mutex_lock(&mutex1);
