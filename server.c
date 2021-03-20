@@ -52,7 +52,7 @@ int numElements();
 
 
 
-void manage_request (mqd_t *s) {
+static void manage_request (mqd_t *s) {
     
     printf("thread connected as well GJ1\n");
     struct Element in_buffer;
@@ -87,7 +87,7 @@ int main(int argc, char **arv)
     
     mqd_t qd_server, qd_client;
     
-    sev.sigev_notify = SIGEV_NONE;
+    //sev.sigev_notify = SIGEV_NONE;
     
     struct mq_attr attr;
     attr.mq_flags = 0;
@@ -102,11 +102,19 @@ int main(int argc, char **arv)
         exit (1);
     }
     
+    sev.sigev_notify = SIGEV_THREAD;
+    sev.sigev_notify_function = manage_request;
+    sev.sigev_notify_attributes = NULL;
+    sev.sigev_value.sival_ptr = &qd_server;
 
     while(1){
-        int new_mes=mq_notify("/server-queue",&sev);
+        //int new_mes=mq_notify("/server-queue",&sev);
+        
         printf("creating  thread because of new message\n");
-        pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
+        if (mq_notify(mqdes, &sev) == -1)
+            perror("mq_notify");
+        
+        //pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
         //pthread_cond_wait(&mutex2,&signal1);
         
         pthread_mutex_lock(&mutex1);
