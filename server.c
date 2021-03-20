@@ -54,7 +54,6 @@ int numElements();
 void manage_request (mqd_t *s) {
     kill=FALSE;
     printf("thread connected as well GJ1\n");
-    pthread_mutex_lock(&mutex1);
     printf("thread connected as well GJ2\n");
     struct Element in_buffer;
     int n;
@@ -62,8 +61,6 @@ void manage_request (mqd_t *s) {
     
     printf("thread connected as well GJ3\n");
     busy=FALSE;
-    pthread_cond_signal(&signal1);
-    pthread_mutex_unlock(&mutex1);
     
     while (1){
         pthread_mutex_lock(&mutex1);
@@ -107,13 +104,11 @@ int main(int argc, char **arv)
         printf("creating  thread\n");
         pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
         //pthread_cond_wait(&mutex1,&signal1);
-        /*
         pthread_mutex_lock(&mutex1);
         while(busy==TRUE){
             pthread_cond_wait(&mutex1,&signal1);
         }
         pthread_mutex_unlock(&mutex1);
-         */
         busy=TRUE;
         if (kill==TRUE){
             exit(1);
