@@ -97,7 +97,6 @@ int main(int argc, char **arv)
     }
     
 
-    busy=TRUE;
     while(1){
         printf("creating  thread\n");
         pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
