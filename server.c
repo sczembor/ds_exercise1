@@ -60,7 +60,6 @@ void manage_request (mqd_t *s) {
     struct Element in_buffer;
     int n;
     pthread_mutex_lock(&mutex1);
-    busy=TRUE;
     while (writing=TRUE){
         printf("Waiting for main to finish writing\n");
         pthread_cond_wait(&mutex1,&signal1);
@@ -128,12 +127,13 @@ int main(int argc, char **arv)
             pthread_mutex_lock(&mutex1);
             i++;
             writing=FALSE;
-            pthread_mutex_unlock(&mutex1);
-            pthread_cond_signal(&signal1);
             while (busy=TRUE){
                 //printf("Waiting for recieving message\n");
                 pthread_cond_wait(&mutex1,&signal2);
             }
+            busy=TRUE;
+            pthread_mutex_unlock(&mutex1);
+            pthread_cond_signal(&signal1);
             //printf("mutex1 locked in main\n");
         }
     }
