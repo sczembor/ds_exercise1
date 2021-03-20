@@ -77,7 +77,7 @@ void manage_request (mqd_t *s) {
 //MAIN --------------------------------------
 int main(int argc, char **arv)
 {
-    
+    struct sigevent sev;
     
     pthread_attr_init(&thread_attr);
     pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_DETACHED);
@@ -86,6 +86,8 @@ int main(int argc, char **arv)
     pthread_cond_init(&signal1,NULL);
     
     mqd_t qd_server, qd_client;
+    
+    sev.sigev_notify = SIGEV_NONE;
     
     struct mq_attr attr;
     attr.mq_flags = 0;
@@ -100,7 +102,7 @@ int main(int argc, char **arv)
     
 
     while(1){
-        int new_mes=mq_notify("/server-queue",SIGEV_NONE);
+        int new_mes=mq_notify("/server-queue",&sev);
         printf("creating  thread because of new message\n");
         pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
         //pthread_cond_wait(&mutex2,&signal1);
