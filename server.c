@@ -52,7 +52,7 @@ int numElements();
 
 
 
-static void manage_request (mqd_t *s) {
+static void manage_request (union sigval sv) {
     
     printf("thread connected as well GJ1\n");
     struct Element in_buffer;
@@ -60,7 +60,7 @@ static void manage_request (mqd_t *s) {
     
     pthread_mutex_lock(&mutex1);
     printf("thread connected as well GJ2\n");
-    mqd_t qd_server=*s;
+    mqd_t qd_server=*((mqd_t *) sv.sival_ptr);
     
     printf("thread connected as well GJ3\n");
     
