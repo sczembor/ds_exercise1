@@ -125,7 +125,7 @@ int main(int argc, char **arv)
             pthread_mutex_unlock(&mutex1);
             while (1){
                 //printf("Waiting for recieving message\n");
-                pthread_cond_wait(&mutex1,&signal2);
+                pthread_cond_wait(&mutex2,&signal2);
             }
             //writing=FALSE;
             //pthread_cond_signal(&signal1);
