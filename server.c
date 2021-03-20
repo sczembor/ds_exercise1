@@ -108,7 +108,7 @@ int main(int argc, char **arv)
 
     while(i<10){
         if (mq_getattr(qd_server, &attr) == -1)
-            errExit("mq_getattr");
+            perror("mq_getattr");
         
         printf("number of messages in queue is %i",attr.mq_curmsgs);
         wait(10);
