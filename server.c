@@ -111,28 +111,26 @@ int main(int argc, char **arv)
     if (mq_notify(qd_server, &sev) == -1){
         perror("mq_notify");
     }
-    /*
+    
     while(1){
-        //int new_mes=mq_notify("/server-queue",&sev);
+        int new_mes=mq_notify("/server-queue",&sev);
         
         printf("creating  thread because of new message\n");
-        int sc=mq_notify(qd_server, &sev);
-        if (mq_notify(qd_server, &sev) == -1){
+        if (new_mes == -1){
             perror("mq_notify");
         }
         printf("valueof sc is: %i\n",sc);
-        if (sc>0){
-            pthread_mutex_lock(&mutex1);
-            printf("mutex1 locked in main\n");
-            while(busy==TRUE){
-                pthread_cond_wait(&mutex1,&signal1);
-            }
-            pthread_mutex_unlock(&mutex1);
-            busy=TRUE;
+        pthread_mutex_lock(&mutex1);
+        printf("mutex1 locked in main\n");
+        while(busy==TRUE){
+            pthread_cond_wait(&mutex1,&signal1);
+        }
+        pthread_mutex_unlock(&mutex1);
+        busy=TRUE;
         }
         //pthread_cond_wait(&mutex2,&signal1);
     }
-     */
+    
     
     return 0;
 }
