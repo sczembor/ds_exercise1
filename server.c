@@ -118,6 +118,7 @@ int main(int argc, char **arv)
         //pthread_cond_wait(&mutex2,&signal1);
         
         pthread_mutex_lock(&mutex1);
+        printf("mutex1 locked in main\n");
         while(busy==TRUE){
             pthread_cond_wait(&mutex1,&signal1);
         }
