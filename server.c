@@ -52,7 +52,7 @@ int numElements();
 
 
 
-static void manage_request (union sigval sv) {
+static void manage_request (mqd_t *s) {
     
     printf("thread connected as well GJ1\n");
     struct Element in_buffer;
@@ -60,7 +60,7 @@ static void manage_request (union sigval sv) {
     
     pthread_mutex_lock(&mutex1);
     printf("thread connected as well GJ2\n");
-    mqd_t qd_server=*((mqd_t *) sv.sival_ptr);
+    mqd_t qd_server=*s;
     
     printf("thread connected as well GJ3\n");
     
@@ -72,7 +72,6 @@ static void manage_request (union sigval sv) {
     pthread_mutex_unlock(&mutex1);
     busy = FALSE;
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
-    return(NULL);
 }
 
 //MAIN --------------------------------------
@@ -103,31 +102,29 @@ int main(int argc, char **arv)
         exit (1);
     }
     
-    sev.sigev_notify = SIGEV_THREAD;
-    sev.sigev_notify_function = manage_request;
-    sev.sigev_notify_attributes = NULL;
-    sev.sigev_value.sival_ptr = &qd_server;
-    
+    sev.sigev_notify = SIGEV_NONE;
+
+    busy = TRUE;
     while(1){
-        int new_mes=mq_notify(qd_server,&sev);
+        //int new_mes=mq_notify("/server-queue",&sev);
         
         printf("creating  thread because of new message\n");
-        if (new_mes == -1){
+        if (mq_notify(qd_server, &sev) == -1)
             perror("mq_notify");
-        }
-        //printf("valueof sc is: %i\n",sc);
+        
+        pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
+        
         pthread_cond_wait(&mutex2,&signal1);
+        
         pthread_mutex_lock(&mutex1);
         printf("mutex1 locked in main\n");
         while(busy==TRUE){
             pthread_cond_wait(&mutex1,&signal1);
         }
         pthread_mutex_unlock(&mutex1);
-        busy=TRUE;
         
-        //pthread_cond_wait(&mutex2,&signal1);
+        busy=TRUE;
     }
-    
     
     return 0;
 }
