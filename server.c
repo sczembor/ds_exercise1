@@ -24,8 +24,8 @@
 
 //STRUCTS ----------------------------
 struct Element{
-    char* key;
-    char* value1;
+    char key[10];
+    char val1[10];
     int value2;
     float value3;
     struct Element* pNext;
