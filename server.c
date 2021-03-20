@@ -54,11 +54,11 @@ int numElements();
 void manage_request (mqd_t *s) {
     kill=FALSE;
     printf("thread connected as well GJ1\n");
-    printf("thread connected as well GJ2\n");
     struct Element in_buffer;
     int n;
     
     pthread_mutex_lock(&mutex1);
+    printf("thread connected as well GJ2\n");
     mqd_t qd_server=*s;
     pthread_cond_signal(&signal1);
     pthread_mutex_unlock(&mutex1);
