@@ -60,10 +60,6 @@ void manage_request (mqd_t *s) {
     struct Element in_buffer;
     int n;
     pthread_mutex_lock(&mutex1);
-    while (writing=TRUE){
-        //printf("Waiting for main to finish writing\n");
-        pthread_cond_wait(&mutex1,&signal1);
-    }
     writing=TRUE;
     printf("thread connected as well GJ2\n");
     mqd_t qd_server=*s;
@@ -75,7 +71,6 @@ void manage_request (mqd_t *s) {
         exit (1);
     }
     i--;
-    pthread_cond_signal(&signal2);
     pthread_mutex_unlock(&mutex1);
     busy = FALSE;
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
@@ -126,8 +121,9 @@ int main(int argc, char **arv)
             pthread_create(&thread[i],&thread_attr,manage_request,&qd_server);
             pthread_mutex_lock(&mutex1);
             i++;
-            writing=FALSE;
-            pthread_cond_signal(&signal1);
+            pthread_mutex_unlock(&mutex1);
+            //writing=FALSE;
+            //pthread_cond_signal(&signal1);
             /*
             while (busy=TRUE){
                 //printf("Waiting for recieving message\n");
@@ -135,8 +131,6 @@ int main(int argc, char **arv)
             }
             busy=TRUE;
             */
-            printf("MUTEX UNLOCKED IN MAIN! and SIGNAL SENT\n");
-            pthread_mutex_unlock(&mutex1);
             //printf("mutex1 locked in main\n");
         }
     }
