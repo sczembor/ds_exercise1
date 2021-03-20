@@ -35,7 +35,6 @@ struct Element{
 
 //GLOBALS -----------------------------
 int busy;
-int kill;
 pthread_t thread;
 pthread_attr_t thread_attr;
 pthread_mutex_t mutex1,mutex2;
@@ -54,7 +53,7 @@ int numElements();
 
 
 void manage_request (mqd_t *s) {
-    kill=FALSE;
+    
     printf("thread connected as well GJ1\n");
     struct Element in_buffer;
     int n;
@@ -116,10 +115,6 @@ int main(int argc, char **arv)
         }
         pthread_mutex_unlock(&mutex1);
         busy=TRUE;
-        
-        if (kill==TRUE){
-            exit(1);
-        }
     }
     
     return 0;
