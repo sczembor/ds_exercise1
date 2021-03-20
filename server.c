@@ -112,6 +112,7 @@ int main(int argc, char **arv)
         exit (1);
     }
     writing=TRUE;
+    busy=FALSE;
     while(1){
         if (mq_getattr(qd_server, &attr) == -1)
             perror("mq_getattr");
