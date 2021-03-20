@@ -110,11 +110,11 @@ int main(int argc, char **arv)
         pthread_create(&thread,&thread_attr,manage_request,&qd_server); //HERE!!!!!
         //pthread_cond_wait(&mutex2,&signal1);
         
-        pthread_mutex_lock(&mutex1);
+        pthread_mutex_lock(&mutex2);
         while(busy==TRUE){
             pthread_cond_wait(&mutex2,&signal1);
         }
-        pthread_mutex_unlock(&mutex1);
+        pthread_mutex_unlock(&mutex2);
         busy=TRUE;
         
         if (kill==TRUE){
