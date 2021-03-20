@@ -64,7 +64,7 @@ void manage_request (mqd_t *s) {
         printf("Waiting for main to finish writing\n");
         pthread_cond_wait(&mutex1,&signal1);
     }
-    //writing=TRUE;
+    writing=TRUE;
     printf("thread connected as well GJ2\n");
     mqd_t qd_server=*s;
     
@@ -132,6 +132,7 @@ int main(int argc, char **arv)
                 //pthread_cond_wait(&mutex1,&signal2);
             //}
             //busy=TRUE;
+            printf("MUTEX UNLOCKED IN MAIN!");
             pthread_mutex_unlock(&mutex1);
             //printf("mutex1 locked in main\n");
         }
