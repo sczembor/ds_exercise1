@@ -59,7 +59,7 @@ void manage_request (mqd_t *s) {
     struct Element in_buffer;
     int n;
     
-    pthread_cond_wait(&mutex1,&signal1);
+    //pthread_cond_wait(&mutex1,&signal1);
     pthread_mutex_lock(&mutex1);
     printf("thread connected as well GJ2\n");
     mqd_t qd_server=*s;
@@ -121,7 +121,7 @@ int main(int argc, char **arv)
             pthread_mutex_lock(&mutex1);
             i++;
             pthread_mutex_unlock(&mutex1);
-            pthread_cond_signal(&signal1);
+            //pthread_cond_signal(&signal1);
             pthread_cond_wait(&mutex2,&signal1);
             //printf("mutex1 locked in main\n");
         }
