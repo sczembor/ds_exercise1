@@ -57,7 +57,7 @@ void manage_request (mqd_t *s) {
     
     printf("thread running\n");
     struct Element in_buffer;
-    int n;
+    //int n;
     pthread_mutex_lock(&mutex1);
     printf("mutex locked by thread\n");
     mqd_t qd_server=*s;
@@ -71,7 +71,7 @@ void manage_request (mqd_t *s) {
     printf("mutex unlocked by thread\n");
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     printf("exiting thread!\n");
-    pthread_exit(&thread);
+    pthread_exit(NULL);
 }
 
 //MAIN --------------------------------------
@@ -114,7 +114,6 @@ int main(int argc, char **arv)
         for (int i=0;i<m;i++){
             printf("number of messages in queue is %i\n",attr.mq_curmsgs);
             printf("creating thread because buffer not empty\n");
-            m--;
             pthread_create(&thread,&thread_attr,manage_request,&qd_server);
             pthread_mutex_lock(&mutex1);
             printf("mutex locked by main\n");
