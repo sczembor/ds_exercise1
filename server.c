@@ -62,12 +62,12 @@ void manage_request (mqd_t *s) {
     printf("mutex locked by thread\n");
     mqd_t qd_server=*s;
     busy = FALSE;
-    pthread_cond_signal(&signal1);
-    pthread_mutex_unlock(&mutex1);
     if (mq_receive (qd_server, (char*)&in_buffer, MAX_MSG_SIZE, NULL) == -1) {
         perror ("Server: mq_receive");
         exit (1);
     }
+    pthread_cond_signal(&signal1);
+    pthread_mutex_unlock(&mutex1);
     printf("mutex unlocked by thread\n");
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     printf("exiting thread!\n");
