@@ -121,10 +121,11 @@ int main(int argc, char **arv)
             pthread_create(&thread[i],&thread_attr,manage_request,&qd_server);
             pthread_mutex_lock(&mutex1);
             while (busy=TRUE){
-                printf("Waiting for recieving message\n");
+                //printf("Waiting for recieving message\n");
                 pthread_cond_wait(&mutex1,&signal2);
             }
             pthread_mutex_unlock(&mutex1);
+            printf("busy changing to true\n");
             busy=TRUE;
         }
     }
