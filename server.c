@@ -110,7 +110,7 @@ int main(int argc, char **arv)
         //printf("number of messages in queue is %i\n",attr.mq_curmsgs);
         //wait(1000);
         
-        if (attr.mq_curmsgs>0){
+        for (int i=0,i<attr.mq_curmsgs,i++){
             printf("number of messages in queue is %i\n",attr.mq_curmsgs);
             printf("creating thread because buffer not empty\n");
             pthread_create(&thread,&thread_attr,manage_request,&qd_server);
@@ -124,7 +124,6 @@ int main(int argc, char **arv)
             pthread_mutex_unlock(&mutex1);
             printf("mutex unlocked by main\n");
             printf("busy changing to true\n");
-            
         }
     }
     return 0;
