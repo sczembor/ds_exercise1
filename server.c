@@ -36,8 +36,7 @@ struct Element{
 //GLOBALS -----------------------------
 int busy;
 int writing;
-int i=0;
-pthread_t thread[10];
+pthread_t thread;
 pthread_attr_t thread_attr;
 pthread_mutex_t mutex1,mutex2;
 pthread_cond_t signal1,signal2;
@@ -72,13 +71,12 @@ void manage_request (mqd_t *s) {
         perror ("Server: mq_receive");
         exit (1);
     }
-    i--;
     busy = FALSE;
     pthread_cond_signal(&signal1);
     pthread_mutex_unlock(&mutex1);
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     printf("number of running threads is %i\nexiting thread!\n",i);
-    pthread_exit(&thread[i+1]);
+    pthread_exit(NULL);
 }
 
 //MAIN --------------------------------------
@@ -119,9 +117,8 @@ int main(int argc, char **arv)
         if (attr.mq_curmsgs>0 && i<10){
             printf("number of messages in queue is %i\n",attr.mq_curmsgs);
             printf("creating thread because buffer not empty\n");
-            pthread_create(&thread[i],&thread_attr,manage_request,&qd_server);
+            pthread_create(&thread,&thread_attr,manage_request,&qd_server);
             pthread_mutex_lock(&mutex1);
-            i++;
             while (busy==TRUE){
                 //printf("Waiting for recieving message\n");
                 pthread_cond_wait(&mutex1,&signal2);
