@@ -86,7 +86,7 @@ int main(int argc, char **arv)
     pthread_cond_init(&signal1,NULL);
     pthread_cond_init(&signal2,NULL);
     
-    mqd_t qd_server, qd_client;
+    mqd_t qd_server;
     
     //sev.sigev_notify = SIGEV_NONE;
     
@@ -126,6 +126,7 @@ int main(int argc, char **arv)
             printf("mutex unlocked by main\n");
             printf("busy changing to true\n");
         }
+        usleep(1000000);
     }
     return 0;
 }
