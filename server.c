@@ -117,17 +117,17 @@ int main(int argc, char **arv)
             printf("number of messages in queue is %i\n",attr.mq_curmsgs);
             printf("creating thread because buffer not empty\n");
             pthread_create(&thread,&thread_attr,manage_request,&qd_server);
-            pthread_mutex_lock(&mutex2);
+            usleep(500000);
+            pthread_mutex_lock(&mutex1);
             printf("mutex locked by main\n");
             while (busy==TRUE){
                 //printf("Waiting for signal by main\n");
                 pthread_cond_wait(&mutex1,&signal1);
             }
             busy=TRUE;
-            pthread_mutex_unlock(&mutex2);
+            pthread_mutex_unlock(&mutex1);
             printf("mutex unlocked by main\n");
             printf("busy changing to true\n");
-            //usleep(500000);
         }
     }
     return 0;
