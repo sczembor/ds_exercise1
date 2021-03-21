@@ -119,10 +119,11 @@ int main(int argc, char **arv)
                 //printf("Waiting for signal by main\n");
                 pthread_cond_wait(&mutex1,&signal2);
             }
+            busy=TRUE;
             pthread_mutex_unlock(&mutex1);
             printf("mutex unlocked by main\n");
             printf("busy changing to true\n");
-            busy=TRUE;
+            
         }
     }
     return 0;
