@@ -59,7 +59,7 @@ void manage_request (mqd_t *s) {
     struct Element in_buffer;
     int n;
     pthread_mutex_lock(&mutex1);
-    busy=TRUE;
+    //busy=TRUE;
     
     //writing=TRUE;
     printf("busy changed by thread to true\n");
