@@ -127,6 +127,7 @@ int main(int argc, char **arv)
             pthread_mutex_unlock(&mutex1);
             printf("mutex unlocked by main\n");
             printf("busy changing to true\n");
+            usleep(500000);
         }
         usleep(1000000);
     }
