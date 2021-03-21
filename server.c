@@ -118,7 +118,7 @@ int main(int argc, char **arv)
             printf("mutex locked by main\n");
             while (busy==TRUE){
                 //printf("Waiting for signal by main\n");
-                pthread_cond_wait(mutex1,signal1);
+                pthread_cond_wait(&mutex1,&signal1);
             }
             
             busy=TRUE;
