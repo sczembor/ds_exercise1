@@ -53,7 +53,7 @@ int numElements();
 
 
 
-void* manage_request (mqd_t *s) {
+void manage_request (mqd_t *s) {
     
     printf("thread running\n");
     struct Element in_buffer;
@@ -113,12 +113,12 @@ int main(int argc, char **arv)
         for (int i=0;i<attr.mq_curmsgs;i++){
             printf("number of messages in queue is %i\n",attr.mq_curmsgs);
             printf("creating thread because buffer not empty\n");
-            pthread_create(&thread,&thread_attr,manage_request,(void*)&qd_server);
+            pthread_create(&thread,&thread_attr,manage_request,&qd_server);
             pthread_mutex_lock(&mutex1);
             printf("mutex locked by main\n");
             while (busy==TRUE){
                 //printf("Waiting for signal by main\n");
-                pthread_cond_wait(&mutex1,&signal2);
+                pthread_cond_wait(mutex1,signal1);
             }
             
             busy=TRUE;
