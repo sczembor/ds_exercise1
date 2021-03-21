@@ -53,7 +53,7 @@ int numElements();
 
 
 
-void manage_request* (mqd_t *s) {
+void* manage_request (mqd_t *s) {
     
     printf("thread running\n");
     struct Element in_buffer;
