@@ -60,8 +60,10 @@ void manage_request (mqd_t *s) {
     struct Element in_buffer;
     int n;
     pthread_mutex_lock(&mutex1);
+    busy=TRUE;
+    
     //writing=TRUE;
-    printf("thread connected as well GJ2\n");
+    printf("busy changed by thread to true\n");
     mqd_t qd_server=*s;
     
     printf("thread connected as well GJ3\n");
@@ -72,8 +74,8 @@ void manage_request (mqd_t *s) {
     }
     i--;
     busy = FALSE;
-    pthread_mutex_unlock(&mutex1);
     pthread_cond_signal(&signal1);
+    pthread_mutex_unlock(&mutex1);
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     printf("number of running threads is %i\nexiting thread!\n",i);
     pthread_exit(&thread[i+1]);
