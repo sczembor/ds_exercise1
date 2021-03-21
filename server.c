@@ -112,6 +112,8 @@ int main(int argc, char **arv)
         
         int m=attr.mq_curmsgs;
         for (int i=0;i<m;i++){
+            if (mq_getattr(qd_server, &attr) == -1)
+                perror("mq_getattr");
             printf("number of messages in queue is %i\n",attr.mq_curmsgs);
             printf("creating thread because buffer not empty\n");
             pthread_create(&thread,&thread_attr,manage_request,&qd_server);
