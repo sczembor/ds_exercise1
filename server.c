@@ -107,7 +107,6 @@ int main(int argc, char **arv)
         perror ("Server: mq_open (server)");
         exit (1);
     }
-    busy=FALSE;
     while(1){
         if (mq_getattr(qd_server, &attr) == -1)
             perror("mq_getattr");
