@@ -59,8 +59,8 @@ void manage_request (mqd_t *s) {
     printf("thread connected as well GJ1\n");
     struct Element in_buffer;
     int n;
-    //pthread_mutex_lock(&mutex1);
-    writing=TRUE;
+    pthread_mutex_lock(&mutex1);
+    //writing=TRUE;
     printf("thread connected as well GJ2\n");
     mqd_t qd_server=*s;
     
@@ -71,9 +71,9 @@ void manage_request (mqd_t *s) {
         exit (1);
     }
     i--;
-    //pthread_mutex_unlock(&mutex1);
-    //pthread_cond_signal(&signal2);
     busy = FALSE;
+    pthread_mutex_unlock(&mutex1);
+    pthread_cond_signal(&signal1);
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     printf("number of running threads is %i\nexiting thread!\n",i);
     pthread_exit(&thread[i+1]);
@@ -107,8 +107,6 @@ int main(int argc, char **arv)
         perror ("Server: mq_open (server)");
         exit (1);
     }
-    writing=TRUE;
-    busy=FALSE;
     while(1){
         if (mq_getattr(qd_server, &attr) == -1)
             perror("mq_getattr");
@@ -120,19 +118,13 @@ int main(int argc, char **arv)
             printf("number of messages in queue is %i\n",attr.mq_curmsgs);
             printf("creating thread because buffer not empty\n");
             pthread_create(&thread[i],&thread_attr,manage_request,&qd_server);
-            //pthread_mutex_lock(&mutex1);
-            i++;
-            //pthread_mutex_unlock(&mutex1);
-            //writing=FALSE;
-            //pthread_cond_signal(&signal1);
-            /*
+            pthread_mutex_lock(&mutex1);
             while (busy=TRUE){
                 //printf("Waiting for recieving message\n");
                 pthread_cond_wait(&mutex1,&signal2);
             }
+            pthread_mutex_unlock(&mutex1);
             busy=TRUE;
-            */
-            //printf("mutex1 locked in main\n");
         }
     }
     return 0;
