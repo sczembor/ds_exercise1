@@ -121,6 +121,7 @@ int main(int argc, char **arv)
             printf("creating thread because buffer not empty\n");
             pthread_create(&thread[i],&thread_attr,manage_request,&qd_server);
             pthread_mutex_lock(&mutex1);
+            i++;
             while (busy==TRUE){
                 //printf("Waiting for recieving message\n");
                 pthread_cond_wait(&mutex1,&signal2);
