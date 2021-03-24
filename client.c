@@ -40,7 +40,6 @@ int main (int argc, char **argv)
     sprintf (client_queue_name, "/client-queue");
     printf("Please input a unique name for the client queue in the form of /queue_name :\n");
     scanf("%s", &mes1.queue_name);
-    sprintf (mes1.queue_name, "%s",mes1.queue_name);
     
     struct mq_attr attr;
     attr.mq_flags = 0;
@@ -54,7 +53,7 @@ int main (int argc, char **argv)
         exit (1);
     }
     
-    
+    printf("opening server queue\n");
     if ((qd_server = mq_open ("/server-queue", O_WRONLY)) == -1) {
         perror ("Client: mq_open (server)");
         exit (1);
