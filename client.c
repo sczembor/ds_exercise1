@@ -40,17 +40,17 @@ int main (int argc, char **argv)
     sprintf (client_queue_name, "/client-queue");
     scanf("Please input a unique name for the client queue in the form of /queue_name : %s", &mes1.queue_name);
     
-    printf("opening client queue\n");
-    if ((qd_client = mq_open (mes1.queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
-        perror ("Server: mq_open (server)");
-        exit (1);
-    }
-    
     struct mq_attr attr;
     attr.mq_flags = 0;
     attr.mq_maxmsg = MAX_MESSAGES;
     attr.mq_msgsize = MAX_MSG_SIZE;
     attr.mq_curmsgs = 0;
+    
+    printf("opening client queue\n");
+    if ((qd_client = mq_open (mes1.queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
+        perror ("Server: mq_open (server)");
+        exit (1);
+    }
     
     
     if ((qd_server = mq_open ("/server-queue", O_WRONLY)) == -1) {
