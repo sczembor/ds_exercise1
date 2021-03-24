@@ -72,7 +72,7 @@ void manage_request (mqd_t *s) {
         perror ("Client: mq_open (server)");
         exit (1);
     }
-    int msg=mq_send(qd_client,(const char *)&in_buffer,sizeof(mes1)+1,0);
+    int msg=mq_send(qd_client,(const char *)&in_buffer,sizeof(in_buffer)+1,0);
     if (msg < 0) {
         perror("Error in sending msg");
         exit(1);
