@@ -80,7 +80,7 @@ int main (int argc, char **argv)
                     perror ("Server: mq_receive");
                     exit (1);
                 }
-                printf ("Client: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.val1, in_buffer.val2, in_buffer.valjk3);
+                printf ("Client: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.val1, in_buffer.val2, in_buffer.val3);
             }
         }
     }
