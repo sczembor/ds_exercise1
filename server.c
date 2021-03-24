@@ -67,7 +67,7 @@ void manage_request (mqd_t *s) {
         perror ("Server: mq_receive");
         exit (1);
     }
-    
+    mqd_t qd_client;
     if ((qd_client = mq_open (in_buffer.queue_name, O_WRONLY)) == -1) {
         perror ("Client: mq_open (server)");
         exit (1);
@@ -77,6 +77,7 @@ void manage_request (mqd_t *s) {
         perror("Error in sending msg");
         exit(1);
     }
+    mq_close(qd_client);
     pthread_cond_signal(&signal1);
     pthread_mutex_unlock(&mutex1);
     
