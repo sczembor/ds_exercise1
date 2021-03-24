@@ -15,7 +15,7 @@
 #include "lib.h"
 
 #define QUEUE_PERMISSIONS 0660
-#define MAX_MESSAGES 50
+#define MAX_MESSAGES 10
 #define MAX_MSG_SIZE 1024
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 
@@ -50,7 +50,7 @@ int main (int argc, char **argv)
     attr.mq_curmsgs = 0;
     
     printf("opening client queue\n");
-    if ((qd_client = mq_open ("/client-queue", O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
+    if ((qd_client = mq_open (client_queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
         perror ("Server: mq_open (server)");
         exit (1);
     }

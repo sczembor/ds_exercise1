@@ -17,7 +17,7 @@
 #include "lib.h"
 
 #define QUEUE_PERMISSIONS 0660
-#define MAX_MESSAGES 50
+#define MAX_MESSAGES 10
 #define MAX_MSG_SIZE 1024
 #define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 #define TRUE 1
