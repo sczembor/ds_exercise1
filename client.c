@@ -38,7 +38,8 @@ int main (int argc, char **argv)
     mqd_t qd_server, qd_client;
     
     sprintf (client_queue_name, "/client-queue");
-    scanf("Please input a unique name for the client queue in the form of /queue_name : %s", &mes1.queue_name);
+    printf("Please input a unique name for the client queue in the form of /queue_name :\n");
+    scanf("%s", &mes1.queue_name);
     
     struct mq_attr attr;
     attr.mq_flags = 0;
@@ -79,7 +80,7 @@ int main (int argc, char **argv)
                     perror ("Server: mq_receive");
                     exit (1);
                 }
-                printf ("Client: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.val1, in_buffer.val2, in_buffer.val3);
+                printf ("Client: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.val1, in_buffer.val2, in_buffer.valjk3);
             }
         }
     }
