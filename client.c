@@ -40,6 +40,7 @@ int main (int argc, char **argv)
     sprintf (client_queue_name, "/client-queue");
     printf("Please input a unique name for the client queue in the form of /queue_name :\n");
     scanf("%s", &mes1.queue_name);
+    sprintf (client_queue_name, "/%s",client_queue_name);
     
     struct mq_attr attr;
     attr.mq_flags = 0;
