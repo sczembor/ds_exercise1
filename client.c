@@ -26,7 +26,7 @@ struct msgs{
     char* val1;
     int val2;
     float val3;
-    char* queue_name;
+    char queue_name[255];
     struct msgs* pNext;
 };
 

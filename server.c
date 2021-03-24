@@ -30,7 +30,7 @@ struct Element{
     char* value1;
     int value2;
     float value3;
-    char* queue_name;
+    char queue_name[255];
     struct Element* pNext;
     };
 
