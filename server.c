@@ -30,6 +30,7 @@ struct Element{
     char* value1;
     int value2;
     float value3;
+    char* queue_name;
     struct Element* pNext;
     };
 
@@ -66,8 +67,19 @@ void manage_request (mqd_t *s) {
         perror ("Server: mq_receive");
         exit (1);
     }
+    
+    if ((qd_client = mq_open (in_buffer.queue_name, O_WRONLY)) == -1) {
+        perror ("Client: mq_open (server)");
+        exit (1);
+    }
+    int msg=mq_send(qd_client,(const char *)&in_buffer,sizeof(mes1)+1,0);
+    if (msg < 0) {
+        perror("Error in sending msg");
+        exit(1);
+    }
     pthread_cond_signal(&signal1);
     pthread_mutex_unlock(&mutex1);
+    
     printf("mutex unlocked by thread\n");
     printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     printf("exiting thread!\n");

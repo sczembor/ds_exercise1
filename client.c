@@ -26,6 +26,7 @@ struct msgs{
     char* val1;
     int val2;
     float val3;
+    char* queue_name;
     struct msgs* pNext;
 };
 
@@ -37,6 +38,13 @@ int main (int argc, char **argv)
     mqd_t qd_server, qd_client;
     
     sprintf (client_queue_name, "/client-queue");
+    scanf("Please input a unique name for the client queue in the form of /queue_name : %s", &mes1.queue_name);
+    
+    printf("opening client queue\n");
+    if ((qd_client = mq_open (mes1.queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
+        perror ("Server: mq_open (server)");
+        exit (1);
+    }
     
     struct mq_attr attr;
     attr.mq_flags = 0;
@@ -63,6 +71,15 @@ int main (int argc, char **argv)
             if (msg < 0) {
                 perror("Error in sending msg");
                 exit(1);
+            }
+            int m=attr.mq_curmsgs;
+            for (int i=0;i<m;i++){
+                struct msgs in_buffer;
+                if (mq_receive (qd_client, (char*)&in_buffer, MAX_MSG_SIZE, NULL) == -1) {
+                    perror ("Server: mq_receive");
+                    exit (1);
+                }
+                printf ("Client: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
             }
         }
     }
