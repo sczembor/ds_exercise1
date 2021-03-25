@@ -95,7 +95,7 @@ void manage_request (mqd_t *s) {
         in_buffer.type = numElements();
     }else{
         in_buffer.type = -1;
-        printf("Wrong argument")
+        printf("Wrong argument");
     }
     mqd_t qd_client;
     if ((qd_client = mq_open (in_buffer.queue_name, O_WRONLY)) == -1) {
