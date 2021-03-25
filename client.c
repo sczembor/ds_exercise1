@@ -104,8 +104,7 @@ int main (int argc, char **argv)
                 exit (1);
                 break;
         }
-        printf("value of type that i just wrote:%i\n",mes1.type);
-        scanf("%s %s %i %f", &mes1.key, &mes1.val1, &mes1.val2, &mes1.val3);
+        //scanf("%s %s %i %f", &mes1.key, &mes1.val1, &mes1.val2, &mes1.val3);
         if (n!=-1){
             int msg;
             printf("Sending message\n");
