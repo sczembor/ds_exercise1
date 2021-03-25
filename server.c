@@ -139,6 +139,8 @@ int main(int argc, char **arv)
     attr.mq_msgsize = MAX_MSG_SIZE;
     attr.mq_curmsgs = 0;
     
+    int clear = mq_unlink("/server-queue");
+    printf("clearing queue results:%d", clear);
     
     printf("opening queue\n");
     if ((qd_server = mq_open ("/server-queue", O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
