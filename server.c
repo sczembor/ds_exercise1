@@ -46,11 +46,11 @@ struct Element* pHead = NULL;
 //FUNCTIONS  DECLARATIONS  -------------
 int addNode(char* key, char* value1, int* value2, float* value3);
 int modifyNode(char* key, char* value1, int* value2, float* value3);
-int deleteList();
+int deleteList(void);
 int searchList(char* key);
 int deleteElement(char* key);
 struct Element* getValue(char* key);
-int numElements();
+int numElements(void);
 
 
 
@@ -67,6 +67,7 @@ void manage_request (mqd_t *s) {
         perror ("Server: mq_receive");
         exit (1);
     }
+    printf(in_buffer);
     mqd_t qd_client;
     if ((qd_client = mq_open (in_buffer.queue_name, O_WRONLY)) == -1) {
         perror ("Client: mq_open (server)");
@@ -82,7 +83,7 @@ void manage_request (mqd_t *s) {
     pthread_mutex_unlock(&mutex1);
     
     printf("mutex unlocked by thread\n");
-    printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
+    printf ("Server: message received: type:%i, %s,%s,%i,%f\n"&in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     printf("exiting thread!\n");
     pthread_exit(NULL);
 }
@@ -155,15 +156,17 @@ int addNode(char* key, char* value1, int* value2, float* value3)
     new->value3 = *value3;
     new->pNext = pHead;
     pHead = new;
+    return 1;
 }
 int deleteList()
 {
     struct Element* tmp = NULL;
     while(pHead){
-        tmp = tmp->pNext;
+        tmp = pHead->pNext;
         free(pHead);
         pHead = tmp;
     }
+    return 1;
 }
 int searchList(char* key)
 {
@@ -210,8 +213,10 @@ int deleteElement(char* key)
     {
         if(!strcmp(key, tmp->key))
         {
-            if(prev)
+            if(prev!=NULL)
                 prev->pNext = tmp->pNext;
+            else
+                pHead = tmp->pNext;
             free(tmp);
             return 0;
         }
