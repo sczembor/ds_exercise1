@@ -38,8 +38,6 @@ int main (int argc, char **argv)
     mqd_t qd_server, qd_client;
     
     sprintf (&mes1.queue_name, "/client_num-%d", getpid ());
-   // printf("Please input a unique name for the client queue in the form of /queue_name :\n");
-   // scanf("%s", &mes1.queue_name);
     sprintf (client_queue_name, "%s",&mes1.queue_name);
     
     
@@ -67,45 +65,45 @@ int main (int argc, char **argv)
     while (err != -1) {
         printf("1. init()\n2.set_value()\n3.get_value()\n4.modify_value()\n5.delete_key()\n6.exsist()\n7.num_items()\nChoose one option(ex. \"1\"):");
         scanf("%i", &mes1.type);
-//        switch (mes1.type) {
-//            case 1://init
-//                printf("message sent");
-//                break;
-//            case 2://set_value
-//                printf("key:");
-//                scanf("%s",&mes1.key);
-//                printf("value1:");
-//                scanf("%s",&mes1.val1);
-//                printf("value2:");
-//                scanf("%d",&mes1.val2);
-//                printf("value3:");
-//                scanf("%s",&mes1.val3);
-//                break;
-//            case 3://get_value
-//                printf("key:");
-//                scanf("%s",&mes1.key);
-//            case 4://modify value
-//                printf("key:");
-//                scanf("%s",&mes1.key);
-//                printf("value1:");
-//                scanf("%s",&mes1.val1);
-//                printf("value2:");
-//                scanf("%d",&mes1.val2);
-//                printf("value3:");
-//                scanf("%s",&mes1.val3);
-//            case 5://delete_key
-//                printf("key:");
-//                scanf("%s",&mes1.key);
-//            case 6://exsist
-//                printf("key:");
-//                scanf("%s",&mes1.key);
-//            case 7://num_items
-//                break;
-//            default:
-//                perror ("Client: Invalid Arguemnt(function)");
-//                exit (1);
-//                break;
-//        }
+        switch (mes1.type) {
+            case 1://init
+                printf("message sent");
+                break;
+            case 2://set_value
+                printf("key:");
+                scanf("%s",&mes1.key);
+                printf("value1:");
+                scanf("%s",&mes1.val1);
+                printf("value2:");
+                scanf("%d",&mes1.val2);
+                printf("value3:");
+                scanf("%s",&mes1.val3);
+                break;
+            case 3://get_value
+                printf("key:");
+                scanf("%s",&mes1.key);
+            case 4://modify value
+                printf("key:");
+                scanf("%s",&mes1.key);
+                printf("value1:");
+                scanf("%s",&mes1.val1);
+                printf("value2:");
+                scanf("%d",&mes1.val2);
+                printf("value3:");
+                scanf("%s",&mes1.val3);
+            case 5://delete_key
+                printf("key:");
+                scanf("%s",&mes1.key);
+            case 6://exsist
+                printf("key:");
+                scanf("%s",&mes1.key);
+            case 7://num_items
+                break;
+            default:
+                perror ("Client: Invalid Arguemnt(function)");
+                exit (1);
+                break;
+        }
         printf("value of type that i just wrote:%i\n",mes1.type);
         scanf("%s %s %i %f", &mes1.key, &mes1.val1, &mes1.val2, &mes1.val3);
         if (n!=-1){
