@@ -30,7 +30,7 @@ struct Element{
     char* value1;
     int value2;
     float value3;
-    char queue_name[255];
+    char queue_name[64];
     struct Element* pNext;
     };
 
@@ -99,7 +99,7 @@ void manage_request (mqd_t *s) {
     }
     mqd_t qd_client;
     if ((qd_client = mq_open (in_buffer.queue_name, O_WRONLY)) == -1) {
-        perror ("Client: mq_open (server)");
+        perror ("Client: mq_open (client)");
         exit (1);
     }
     int msg=mq_send(qd_client,(const char *)&in_buffer,sizeof(in_buffer)+1,0);
