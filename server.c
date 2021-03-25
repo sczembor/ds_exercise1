@@ -72,8 +72,9 @@ void manage_request (mqd_t *s) {
         in_buffer.type = deleteList();
     }else if(in_buffer.type == 2){
         if(searchList(in_buffer.key)==0){
-            printf("im am in if statement for 2")
+            printf("im am in if statement for 2");
             in_buffer.type = addNode(&in_buffer.key,&in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
+            printf("after invoke of addNode");
         }else{
             in_buffer.type = -1;
         }
@@ -183,6 +184,7 @@ int main(int argc, char **arv)
 int addNode(char* key, char* value1, int* value2, float* value3)
 {
     struct Element* new = (struct Element*)malloc(sizeof(struct Element));
+    printf("im am in addNode function");
     new->key = key;
     new->value1 = value1;
     new->value2 = *value2;
