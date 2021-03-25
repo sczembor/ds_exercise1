@@ -65,6 +65,9 @@ int main (int argc, char **argv)
     int err = 0;
     int n;
     while (err != -1) {
+        printf("1. init()\n2.set_value()\n3.get_value()\n4.modify_value()\n5.delete_key()\n6.exsist()\n7.num_items()\nChoose one option(ex. \"1\"):");
+        scanf("%i", &mes1.type);
+        printf("value of type that i just wrote:%i\n",mes1.type);
         scanf("%s %s %i %f", &mes1.key, &mes1.val1, &mes1.val2, &mes1.val3);
         if (n!=-1){
             int msg;
@@ -82,6 +85,7 @@ int main (int argc, char **argv)
                 printf("the number of new messages is %i",m);
             }
             for (int i=0;i<m;i++){
+                printf("im in loop hey");
                 struct msgs in_buffer;
                 if (mq_receive (qd_client, (char*)&in_buffer, MAX_MSG_SIZE, NULL) == -1) {
                     perror ("Server: mq_receive");

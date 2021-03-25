@@ -46,11 +46,11 @@ struct Element* pHead = NULL;
 //FUNCTIONS  DECLARATIONS  -------------
 int addNode(char* key, char* value1, int* value2, float* value3);
 int modifyNode(char* key, char* value1, int* value2, float* value3);
-int deleteList();
+int deleteList(void);
 int searchList(char* key);
 int deleteElement(char* key);
 struct Element* getValue(char* key);
-int numElements();
+int numElements(void);
 
 
 
@@ -67,6 +67,36 @@ void manage_request (mqd_t *s) {
         perror ("Server: mq_receive");
         exit (1);
     }
+    if(in_buffer.type == 1){
+        in_buffer.type = deleteList();
+    }else if(in_buffer.type == 2){
+        if(searchList(in_buffer.key)==0){
+            in_buffer.type = addNode(&in_buffer.key,&in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
+        }else{
+            in_buffer.type = -1;
+        }
+    }else if(in_buffer.type == 3){
+        if(searchList(in_buffer.key)==0){
+            struct Element* tmp = getValue(in_buffer.key);
+            in_buffer.value1 = tmp->value1;
+            in_buffer.value2 = tmp->value2;
+            in_buffer.value3 = tmp->value3;
+            in_buffer.type = 0;
+        }else{
+            in_buffer.type = -1;
+        }
+    }else if(in_buffer.type == 4){
+        in_buffer.type = modifyNode(&in_buffer.key, &in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
+    }else if(in_buffer.type == 5){
+        in_buffer.type = deleteElement(in_buffer.key);
+    }else if(in_buffer.type == 6){
+        in_buffer.type = searchList(in_buffer.key);
+    }else if(in_buffer.type == 7){
+        in_buffer.type = numElements();
+    }else{
+        in_buffer.type = -1;
+        printf("Wrong argument");
+    }
     mqd_t qd_client;
     if ((qd_client = mq_open (in_buffer.queue_name, O_WRONLY)) == -1) {
         perror ("Client: mq_open (client)");
@@ -82,7 +112,7 @@ void manage_request (mqd_t *s) {
     pthread_mutex_unlock(&mutex1);
     
     printf("mutex unlocked by thread\n");
-    printf ("Server: message received: %s,%s,%i,%f\n",&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
+    printf ("Server: message received: type:%i, %s,%s,%i,%f\n",in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     printf("exiting thread!\n");
     pthread_exit(NULL);
 }
@@ -155,15 +185,17 @@ int addNode(char* key, char* value1, int* value2, float* value3)
     new->value3 = *value3;
     new->pNext = pHead;
     pHead = new;
+    return 0;
 }
 int deleteList()
 {
     struct Element* tmp = NULL;
     while(pHead){
-        tmp = tmp->pNext;
+        tmp = pHead->pNext;
         free(pHead);
         pHead = tmp;
     }
+    return 0;
 }
 int searchList(char* key)
 {
@@ -197,6 +229,7 @@ int modifyNode(char* key, char* value1, int* value2, float* value3)
             tmp->value1 = value1;
             tmp->value2 = *value2;
             tmp->value3 = *value3;
+            return 0;
         }
         tmp = tmp->pNext;
     }
@@ -210,8 +243,10 @@ int deleteElement(char* key)
     {
         if(!strcmp(key, tmp->key))
         {
-            if(prev)
+            if(prev!=NULL)
                 prev->pNext = tmp->pNext;
+            else
+                pHead = tmp->pNext;
             free(tmp);
             return 0;
         }
@@ -229,6 +264,6 @@ int numElements()
         num = num + 1;
         tmp = tmp->pNext;
     }
-    return num;//element does not exsist
+    return num;
 }
 
