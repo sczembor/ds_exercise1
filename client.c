@@ -101,6 +101,7 @@ int main (int argc, char **argv)
                 printf("key:");
                 scanf("%s",&mes1.key);
             case 7://num_items
+                break;
             default:
                 perror ("Client: Invalid Arguemnt(function)");
                 exit (1);
