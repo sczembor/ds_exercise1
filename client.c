@@ -37,11 +37,9 @@ int main (int argc, char **argv)
     char client_queue_name [64];
     mqd_t qd_server, qd_client;
     
-    //sprintf (client_queue_name, "/client-queue");
-    //printf("Please input a unique name for the client queue in the form of /queue_name :\n");
-    //scanf("%s", &mes1.queue_name);
-    sprintf (client_queue_name, "/client_num-%d", getpid ());
-    printf("%s", client_queue_name);
+    sprintf (&mes1.queue_name, "/client_num-%d", getpid ());
+   // printf("Please input a unique name for the client queue in the form of /queue_name :\n");
+   // scanf("%s", &mes1.queue_name);
     sprintf (client_queue_name, "%s",&mes1.queue_name);
     
     
