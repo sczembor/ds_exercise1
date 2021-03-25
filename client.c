@@ -26,7 +26,7 @@ struct msgs{
     char* val1;
     int val2;
     float val3;
-    char queue_name[255];
+    char queue_name[64];
     struct msgs* pNext;
 };
 
@@ -75,7 +75,12 @@ int main (int argc, char **argv)
                 perror("Error in sending msg");
                 exit(1);
             }
+            if (mq_getattr(qd_client, &attr) == -1)
+                perror("mq_getattr");
             int m=attr.mq_curmsgs;
+            if (m>0){
+                printf("the number of new messages is %i",m);
+            }
             for (int i=0;i<m;i++){
                 struct msgs in_buffer;
                 if (mq_receive (qd_client, (char*)&in_buffer, MAX_MSG_SIZE, NULL) == -1) {
@@ -91,6 +96,7 @@ int main (int argc, char **argv)
         perror ("Client: mq_unlink");
         exit (1);
     }
+    mq_close(client_queue_name);
     printf ("Client: bye\n");
     
     return 0;
