@@ -82,7 +82,7 @@ void manage_request (mqd_t *s) {
     pthread_mutex_unlock(&mutex1);
     
     printf("mutex unlocked by thread\n");
-    printf ("Server: message received: type:%i, %s,%s,%i,%f\n"&in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
+    printf ("Server: message received: type:%i, %s,%s,%i,%f\n",&in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     printf("exiting thread!\n");
     pthread_exit(NULL);
 }
