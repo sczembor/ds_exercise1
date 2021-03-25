@@ -81,9 +81,9 @@ int main (int argc, char **argv)
             if (mq_getattr(qd_client, &attr) == -1)
                 perror("mq_getattr");
             int m=attr.mq_curmsgs;
-            if (m>0){
-                printf("the number of new messages is %i",m);
-            }
+            
+            printf("the number of new messages is %i",m);
+            
             for (int i=0;i<m;i++){
                 printf("im in loop hey");
                 struct msgs in_buffer;
