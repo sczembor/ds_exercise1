@@ -26,8 +26,8 @@
 //STRUCTS ----------------------------
 struct Element{
     int type;
-    char* key;
-    char* value1;
+    char key[64];
+    char value1[64];
     int value2;
     float value3;
     char queue_name[64];
