@@ -82,6 +82,7 @@ int main (int argc, char **argv)
             case 3://get_value
                 printf("key:");
                 scanf("%s",&mes1.key);
+                break;
             case 4://modify value
                 printf("key:");
                 scanf("%s",&mes1.key);
@@ -91,12 +92,15 @@ int main (int argc, char **argv)
                 scanf("%d",&mes1.val2);
                 printf("value3:");
                 scanf("%f",&mes1.val3);
+                break;
             case 5://delete_key
                 printf("key:");
                 scanf("%s",&mes1.key);
+                break;
             case 6://exsist
                 printf("key:");
                 scanf("%s",&mes1.key);
+                break;
             case 7://num_items
                 break;
             default:
