@@ -67,7 +67,6 @@ void manage_request (mqd_t *s) {
         perror ("Server: mq_receive");
         exit (1);
     }
-    printf(in_buffer);
     mqd_t qd_client;
     if ((qd_client = mq_open (in_buffer.queue_name, O_WRONLY)) == -1) {
         perror ("Client: mq_open (server)");
