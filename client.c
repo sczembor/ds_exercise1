@@ -80,6 +80,7 @@ int main (int argc, char **argv)
             }
             int m=attr.mq_curmsgs;
             for (int i=0;i<m;i++){
+                printf("im in loop hey");
                 struct msgs in_buffer;
                 if (mq_receive (qd_client, (char*)&in_buffer, MAX_MSG_SIZE, NULL) == -1) {
                     perror ("Server: mq_receive");
