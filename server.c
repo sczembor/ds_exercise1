@@ -71,22 +71,22 @@ void manage_request (mqd_t *s) {
         in_buffer.type = deleteList();
     }else if(in_buffer.type == 2){
         if(searchList(in_buffer.key)==0){
-            in_buffer.type = addNode(in_buffer.key,in_buffer.value1,in_buffer.value2,in_buffer.value3);
+            in_buffer.type = addNode(&in_buffer.key,&in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
         }else{
             in_buffer.type = -1;
         }
     }else if(in_buffer.type == 3){
         if(searchList(in_buffer.key)==0){
             struct Element* tmp = getValue(in_buffer.key);
-            in_buffer.value1 = tmp.value1;
-            in_buffer.value2 = tmp.value2;
-            in_buffer.value3 = tmp.value3;
+            in_buffer.value1 = tmp->value1;
+            in_buffer.value2 = tmp->value2;
+            in_buffer.value3 = tmp->value3;
             in_buffer.type = 0;
         }else{
             in_buffer.type = -1;
         }
     }else if(in_buffer.type == 4){
-        in_buffer.type = modifyNode(in_buffer.key, in_buffer.value1,in_buffer.value2,in_buffer.value3);
+        in_buffer.type = modifyNode(&in_buffer.key, &in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
     }else if(in_buffer.type == 5){
         in_buffer.type = deleteElement(in_buffer.key);
     }else if(in_buffer.type == 6){
