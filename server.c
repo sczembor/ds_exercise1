@@ -67,6 +67,7 @@ void manage_request (mqd_t *s) {
         perror ("Server: mq_receive");
         exit (1);
     }
+    printf ("1Server: message recived: type:%i, %s,%s,%i,%f\n",in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     if(in_buffer.type == 1){
         in_buffer.type = deleteList();
     }else if(in_buffer.type == 2){
@@ -98,7 +99,6 @@ void manage_request (mqd_t *s) {
         printf("Wrong argument");
     }
     mqd_t qd_client;
-    printf("Jak wyglada ta jebana nazwa:%s", in_buffer.queue_name);
     if ((qd_client = mq_open (in_buffer.queue_name, O_WRONLY)) == -1) {
         perror ("Client: mq_open (client)");
         exit (1);
@@ -113,7 +113,7 @@ void manage_request (mqd_t *s) {
     pthread_mutex_unlock(&mutex1);
     
     printf("mutex unlocked by thread\n");
-    printf ("Server: message received: type:%i, %s,%s,%i,%f\n",in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
+    printf ("2Server: message sent back: type:%i, %s,%s,%i,%f\n",in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     printf("exiting thread!\n");
     pthread_exit(NULL);
 }
