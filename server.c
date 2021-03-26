@@ -211,7 +211,7 @@ int searchList(char* key)
     while(tmp != NULL)
     {
         printf("im in searchlist while loop\n");
-        printf("wartość key:%s\n", key);
+        //printf("wartość key:%s\n", key);
         printf("wartość tmp->:%s\n",tmp->key);
         printf("im in searchlist while loop\n");
         int i = strcmp(key, tmp->key);
