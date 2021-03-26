@@ -62,7 +62,6 @@ void manage_request (mqd_t *s) {
     pthread_mutex_lock(&mutex1);
     printf("mutex locked by thread\n");
     mqd_t qd_server=*s;
-    busy = FALSE;
     if (mq_receive (qd_server, (char*)&in_buffer, MAX_MSG_SIZE, NULL) == -1) {
         perror ("Server: mq_receive");
         exit (1);
@@ -120,6 +119,7 @@ void manage_request (mqd_t *s) {
         exit(1);
     }
     mq_close(qd_client);
+    busy = FALSE;
     pthread_cond_signal(&signal1);
     pthread_mutex_unlock(&mutex1);
     
@@ -131,8 +131,6 @@ void manage_request (mqd_t *s) {
 //MAIN --------------------------------------
 int main(int argc, char **arv)
 {
-    struct sigevent sev;
-    
     pthread_attr_init(&thread_attr);
     pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_DETACHED);
     pthread_mutex_init(&mutex1,NULL);
@@ -211,19 +209,19 @@ int deleteList()
     }
     return 0;
 }
-int searchList(char* key)
+int searchList(char* wtf)
 {
     struct Element* tmp = pHead;
     printf("all good\n");
     while(tmp != NULL)
     {
         printf("im in searchlist while loop\n");
-        printf("wartość key:%s\n", key);
+        printf("wartość key:%s\n", wtf);
         printf("wartość tmp->key:%s\n",tmp->key);
         printf("im in searchlist while loop\n");
-        int i = strcmp(key, tmp->key);
+        int i = strcmp(wtf, tmp->key);
         printf("wartosc porównania: %d\n",i);
-        if(strcmp(key, tmp->key) == 0)
+        if(strcmp(wtf, tmp->key) == 0)
             return 1;
         tmp = tmp->pNext;
     }
