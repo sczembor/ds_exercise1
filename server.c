@@ -197,7 +197,7 @@ int addNode(char* key, char* value1, int* value2, float* value3)
 int deleteList()
 {
     struct Element* tmp = NULL;
-    while(pHead){
+    while(pHead != NULL){
         tmp = pHead->pNext;
         free(pHead);
         pHead = tmp;
@@ -208,7 +208,7 @@ int searchList(char* key)
 {
     struct Element* tmp = pHead;
     printf("all good\n");
-    while(tmp)
+    while(tmp != NULL)
     {
         printf("im in searchlist while loop\n");
         if(!strcmp(key, tmp->key))
@@ -220,7 +220,7 @@ int searchList(char* key)
 struct Element* getValue(char* key)
 {
     struct Element* tmp = pHead;
-    while(tmp)
+    while(tmp != NULL)
     {
         if(!strcmp(key, tmp->key))
             return tmp;
@@ -231,7 +231,7 @@ struct Element* getValue(char* key)
 int modifyNode(char* key, char* value1, int* value2, float* value3)
 {
     struct Element* tmp = pHead;
-    while(tmp)
+    while(tmp != NULL)
     {
         if(!strcmp(key, tmp->key))
         {
