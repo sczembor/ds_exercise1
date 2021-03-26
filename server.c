@@ -209,6 +209,7 @@ int searchList(char* key)
     printf("all good\n");
     while(tmp)
     {
+        printf("im in searchlist while loop\n");
         if(!strcmp(key, tmp->key))
             return 1;
         tmp = tmp->pNext;
