@@ -71,7 +71,7 @@ void manage_request (mqd_t *s) {
     if(in_buffer.type == 1){
         in_buffer.type = deleteList();
     }else if(in_buffer.type == 2){
-        if(searchList(in_buffer.key)==0){
+        if(searchList(&in_buffer.key)==0){
             printf("im am in if statement for 2");
             in_buffer.type = addNode(&in_buffer.key,&in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
             printf("after invoke of addNode");
@@ -79,7 +79,7 @@ void manage_request (mqd_t *s) {
             in_buffer.type = -1;
         }
     }else if(in_buffer.type == 3){
-        if(searchList(in_buffer.key)==0){
+        if(searchList(&in_buffer.key)==1){
             struct Element* tmp = getValue(in_buffer.key);
             in_buffer.value1 = tmp->value1;
             in_buffer.value2 = tmp->value2;
@@ -91,9 +91,10 @@ void manage_request (mqd_t *s) {
     }else if(in_buffer.type == 4){
         in_buffer.type = modifyNode(&in_buffer.key, &in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
     }else if(in_buffer.type == 5){
-        in_buffer.type = deleteElement(in_buffer.key);
+        in_buffer.type = deleteElement(&in_buffer.key);
     }else if(in_buffer.type == 6){
-        in_buffer.type = searchList(in_buffer.key);
+        in_buffer.type = searchList(&in_buffer.key);
+        printf("zwrociło się z funkcji to: %d",in_buffer.type);
     }else if(in_buffer.type == 7){
         in_buffer.type = numElements();
     }else{
@@ -196,7 +197,7 @@ int addNode(char* key, char* value1, int* value2, float* value3)
 int deleteList()
 {
     struct Element* tmp = NULL;
-    while(pHead){
+    while(pHead != NULL){
         tmp = pHead->pNext;
         free(pHead);
         pHead = tmp;
@@ -206,10 +207,16 @@ int deleteList()
 int searchList(char* key)
 {
     struct Element* tmp = pHead;
-    //printf("all good\n");
-    while(tmp)
+    printf("all good\n");
+    while(tmp != NULL)
     {
-        if(!strcmp(key, tmp->key))
+        printf("im in searchlist while loop\n");
+        //printf("wartość key:%s\n", key);
+        printf("wartość tmp->:%s\n",tmp->key);
+        printf("im in searchlist while loop\n");
+        int i = strcmp(key, tmp->key);
+        printf("wartosc porównania: %d\n",i);
+        if(strcmp(key, tmp->key) == 0)
             return 1;
         tmp = tmp->pNext;
     }
@@ -218,7 +225,7 @@ int searchList(char* key)
 struct Element* getValue(char* key)
 {
     struct Element* tmp = pHead;
-    while(tmp)
+    while(tmp != NULL)
     {
         if(!strcmp(key, tmp->key))
             return tmp;
@@ -229,7 +236,7 @@ struct Element* getValue(char* key)
 int modifyNode(char* key, char* value1, int* value2, float* value3)
 {
     struct Element* tmp = pHead;
-    while(tmp)
+    while(tmp != NULL)
     {
         if(!strcmp(key, tmp->key))
         {
