@@ -26,7 +26,7 @@
 //STRUCTS ----------------------------
 struct Element{
     int type;
-    char** key;
+    char* key;
     char* value1;
     int value2;
     float value3;
@@ -68,10 +68,11 @@ void manage_request (mqd_t *s) {
         exit (1);
     }
     printf ("1Server: message recived: type:%i, %s,%s,%i,%f\n",in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
+    char* key=in_buffer.key;
     if(in_buffer.type == 1){
         in_buffer.type = deleteList();
     }else if(in_buffer.type == 2){
-        if(searchList(&in_buffer.key)==0){
+        if(searchList(key)==0){
             printf("im am in if statement for 2");
             in_buffer.type = addNode(&in_buffer.key,&in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
             printf("after invoke of addNode");
