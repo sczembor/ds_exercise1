@@ -204,14 +204,14 @@ int deleteList()
     }
     return 0;
 }
-int searchList(char* key)
+int searchList(const char* key)
 {
     struct Element* tmp = pHead;
     printf("all good\n");
     while(tmp != NULL)
     {
         printf("im in searchlist while loop\n");
-        if(!strcmp(key, tmp->key))
+        if(strcmp(key, tmp->key) == 0)
             return 1;
         tmp = tmp->pNext;
     }
