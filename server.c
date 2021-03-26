@@ -67,12 +67,12 @@ void manage_request (mqd_t *s) {
         perror ("Server: mq_receive");
         exit (1);
     }
-    printf ("1Server: message recived: type:%i, %s,%s,%i,%f\n",in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
-    char* key=in_buffer.key;
+    printf ("Server: message recived: type:%i, %s,%s,%i,%f\n",in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
+    //char* key=in_buffer.key;
     if(in_buffer.type == 1){
         in_buffer.type = deleteList();
     }else if(in_buffer.type == 2){
-        if(searchList(&key)==0){
+        if(searchList(&in_buffer.key)==0){
             printf("im am in if statement for 2");
             in_buffer.type = addNode(&in_buffer.key,&in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
             printf("after invoke of addNode");
@@ -100,7 +100,7 @@ void manage_request (mqd_t *s) {
         }
     }else if(in_buffer.type == 6){
         printf("in buffer key przed wejsciem do funkcji %s\n",&in_buffer.key);
-        in_buffer.type = searchList(&key);
+        in_buffer.type = searchList(&in_buffer.key);
         printf("zwrociło się z funkcji to: %d",in_buffer.type);
     }else if(in_buffer.type == 7){
         in_buffer.type = numElements();
