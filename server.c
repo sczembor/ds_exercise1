@@ -206,7 +206,7 @@ int deleteList()
 int searchList(char* key)
 {
     struct Element* tmp = pHead;
-    printf("all good\n");
+    //printf("all good\n");
     while(tmp)
     {
         if(!strcmp(key, tmp->key))
