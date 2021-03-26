@@ -26,7 +26,7 @@
 //STRUCTS ----------------------------
 struct Element{
     int type;
-    char* key;
+    char** key;
     char* value1;
     int value2;
     float value3;
@@ -47,7 +47,7 @@ struct Element* pHead = NULL;
 int addNode(char* key, char* value1, int* value2, float* value3);
 int modifyNode(char* key, char* value1, int* value2, float* value3);
 int deleteList(void);
-int searchList(char** key);
+int searchList(char* key);
 int deleteElement(char* key);
 struct Element* getValue(char* key);
 int numElements(void);
@@ -210,7 +210,7 @@ int deleteList()
     }
     return 0;
 }
-int searchList(char** key)
+int searchList(char* key)
 {
     struct Element* tmp = pHead;
     printf("all good\n");

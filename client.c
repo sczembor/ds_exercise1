@@ -22,7 +22,7 @@
 //STRUCTS ----------------------------
 struct msgs{
     int type;
-    char* key;
+    char** key;
     char* val1;
     int val2;
     float val3;
