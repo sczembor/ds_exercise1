@@ -91,9 +91,9 @@ void manage_request (mqd_t *s) {
     }else if(in_buffer.type == 4){
         in_buffer.type = modifyNode(&in_buffer.key, &in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
     }else if(in_buffer.type == 5){
-        in_buffer.type = deleteElement(in_buffer.key);
+        in_buffer.type = deleteElement(&in_buffer.key);
     }else if(in_buffer.type == 6){
-        in_buffer.type = searchList(in_buffer.key);
+        in_buffer.type = searchList(&in_buffer.key);
         printf("zwrociło się z funkcji to: %d",in_buffer.type);
     }else if(in_buffer.type == 7){
         in_buffer.type = numElements();
