@@ -211,6 +211,8 @@ int searchList(char* key)
     while(tmp != NULL)
     {
         printf("im in searchlist while loop\n");
+        int i = strcmp(key, tmp->key);
+        printf("wartosc porównania: %d\n",i);
         if(strcmp(key, tmp->key) == 0)
             return 1;
         tmp = tmp->pNext;
