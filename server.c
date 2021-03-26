@@ -93,6 +93,7 @@ void manage_request (mqd_t *s) {
     }else if(in_buffer.type == 5){
         in_buffer.type = deleteElement(&in_buffer.key);
     }else if(in_buffer.type == 6){
+        printf("in buffer key przed wejsciem do funkcji %s\n",in_buffer.key);
         in_buffer.type = searchList(&in_buffer.key);
         printf("zwrociło się z funkcji to: %d",in_buffer.type);
     }else if(in_buffer.type == 7){
@@ -211,8 +212,8 @@ int searchList(char* key)
     while(tmp != NULL)
     {
         printf("im in searchlist while loop\n");
-        //printf("wartość key:%s\n", key);
-        printf("wartość tmp->:%s\n",tmp->key);
+        printf("wartość key:%s\n", key);
+        printf("wartość tmp->key:%s\n",tmp->key);
         printf("im in searchlist while loop\n");
         int i = strcmp(key, tmp->key);
         printf("wartosc porównania: %d\n",i);
