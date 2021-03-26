@@ -47,7 +47,7 @@ struct Element* pHead = NULL;
 int addNode(char* key, char* value1, int* value2, float* value3);
 int modifyNode(char* key, char* value1, int* value2, float* value3);
 int deleteList(void);
-int searchList(char* key);
+int searchList(char** key);
 int deleteElement(char* key);
 struct Element* getValue(char* key);
 int numElements(void);
