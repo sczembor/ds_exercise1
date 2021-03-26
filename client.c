@@ -67,7 +67,7 @@ int main (int argc, char **argv)
         scanf("%i", &mes1.type);
         switch (mes1.type) {
             case 1://init
-                printf("message sent");
+                printf("message sent");  //init function in the library
                 break;
             case 2://set_value
                 printf("key:");
@@ -108,8 +108,7 @@ int main (int argc, char **argv)
                 exit (1);
                 break;
         }
-        //scanf("%s %s %i %f", &mes1.key, &mes1.val1, &mes1.val2, &mes1.val3);
-        if (mes1.type!=0){
+        if (mes1.type!=0){ //This needs to be inside each function  STARTIN HERE----------------------------------------------------------------
             int msg;
             printf("Sending message\n");
             msg=mq_send(qd_server,(const char *)&mes1,sizeof(mes1)+1,0);
@@ -139,6 +138,7 @@ int main (int argc, char **argv)
                 }
             }
         }
+        //ENDIN HERE ------------------------------------------------
     }
     
     if (mq_unlink (client_queue_name) == -1) {
