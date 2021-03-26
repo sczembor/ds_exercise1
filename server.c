@@ -94,6 +94,7 @@ void manage_request (mqd_t *s) {
         in_buffer.type = deleteElement(in_buffer.key);
     }else if(in_buffer.type == 6){
         in_buffer.type = searchList(in_buffer.key);
+        printf("zwrociło się z funkcji to: %d",in_buffer.type);
     }else if(in_buffer.type == 7){
         in_buffer.type = numElements();
     }else{
