@@ -118,7 +118,8 @@ int main (int argc, char **argv)
                 perror("Error in sending msg");
                 exit(1);
             }
-            while(1){
+            int mes_rec=0;
+            while(mes_rec==0){
                 if (mq_getattr(qd_client, &attr) == -1)
                     perror("mq_getattr");
                 int m=attr.mq_curmsgs;
@@ -133,7 +134,7 @@ int main (int argc, char **argv)
                     }
                     printf ("Client: message received: type:%i, %s,%s,%i,%f\n",in_buffer.type, &in_buffer.key, &in_buffer.val1, in_buffer.val2, in_buffer.val3);
                     if (i==m-1){
-                        break;
+                        mes_rec=1;
                     }
                 }
             }
