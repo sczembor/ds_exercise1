@@ -72,7 +72,7 @@ void manage_request (mqd_t *s) {
     if(in_buffer.type == 1){
         in_buffer.type = deleteList();
     }else if(in_buffer.type == 2){
-        if(searchList(key)==0){
+        if(searchList(&key)==0){
             printf("im am in if statement for 2");
             in_buffer.type = addNode(&in_buffer.key,&in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
             printf("after invoke of addNode");
