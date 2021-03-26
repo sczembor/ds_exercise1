@@ -41,7 +41,7 @@ pthread_t thread;
 pthread_attr_t thread_attr;
 pthread_mutex_t mutex1,mutex2;
 pthread_cond_t signal1,signal2;
-struct Element* pHead = NULL;
+struct Element pHead = NULL;
 
 //FUNCTIONS  DECLARATIONS  -------------
 int addNode(char* key, char* value1, int* value2, float* value3);
