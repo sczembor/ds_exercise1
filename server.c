@@ -212,7 +212,7 @@ int deleteList()
 }
 int searchList(char* key)
 {
-    struct Element** tmp = pHead;
+    struct Element* tmp = *pHead;
     printf("all good\n");
     while(tmp != NULL)
     {
