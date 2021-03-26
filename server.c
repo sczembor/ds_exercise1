@@ -204,7 +204,7 @@ int deleteList()
     }
     return 0;
 }
-int searchList(const char* key)
+int searchList(char* key)
 {
     struct Element* tmp = pHead;
     printf("all good\n");
