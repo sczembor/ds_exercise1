@@ -91,8 +91,14 @@ void manage_request (mqd_t *s) {
     }else if(in_buffer.type == 4){
         in_buffer.type = modifyNode(&in_buffer.key, &in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
     }else if(in_buffer.type == 5){
-        in_buffer.type = deleteElement(&in_buffer.key);
+        //in_buffer.type = deleteElement(&in_buffer.key);
+        while(pHead)
+        {
+            printf("key:%s\nvalue2:%d",pHead->key,pHead->value2);
+            pHead = pHead->pNext;
+        }
     }else if(in_buffer.type == 6){
+        printf("in buffer key przed wejsciem do funkcji %s\n",&in_buffer.key);
         in_buffer.type = searchList(&in_buffer.key);
         printf("zwrociło się z funkcji to: %d",in_buffer.type);
     }else if(in_buffer.type == 7){
@@ -204,15 +210,15 @@ int deleteList()
     }
     return 0;
 }
-int searchList(char* key)
+int searchList(char** key)
 {
     struct Element* tmp = pHead;
     printf("all good\n");
     while(tmp != NULL)
     {
         printf("im in searchlist while loop\n");
-        //printf("wartość key:%s\n", key);
-        printf("wartość tmp->:%s\n",tmp->key);
+        printf("wartość key:%s\n", key);
+        printf("wartość tmp->key:%s\n",tmp->key);
         printf("im in searchlist while loop\n");
         int i = strcmp(key, tmp->key);
         printf("wartosc porównania: %d\n",i);
