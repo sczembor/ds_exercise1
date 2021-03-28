@@ -39,18 +39,20 @@ int init(mqd_t qd_server,mqd_t qd_client){
     
     msg.type=1;
     
-    int msg;
+    int message;
     printf("Sending message\n");
-    msg=mq_send(qd_server,(const char *)&mes1,sizeof(mes1)+1,0);
-    printf ("Client: message sent: %s,%s,%d,%f\n",&mes1.key, &mes1.val1, mes1.val2, mes1.val3);
-    if (msg < 0) {
+    message=mq_send(qd_server,(const char *)&msg,sizeof(mes1)+1,0);
+    printf ("Client: message sent: %s,%s,%d,%f\n",&msg.key, &msg.val1, msg.val2, msg.val3);
+    if (message < 0) {
         perror("Error in sending msg");
-        exit(1);
+        return (-1);
     }
     int mes_rec=0;
     while(mes_rec==0){
-        if (mq_getattr(qd_client, &attr) == -1)
+        if (mq_getattr(qd_client, &attr) == -1){
             perror("mq_getattr");
+            return (-1);
+        }
         int m=attr.mq_curmsgs;
             
             //printf("the number of new messages is %i",m);
@@ -59,7 +61,7 @@ int init(mqd_t qd_server,mqd_t qd_client){
             struct msgs in_buffer;
             if (mq_receive (qd_client, (char*)&in_buffer, MAX_MSG_SIZE, NULL) == -1) {
                 perror ("Server: mq_receive");
-                exit (1);
+                return (-1);
             }
             printf ("Client: message received: type:%i, %s,%s,%i,%f\n",in_buffer.type, &in_buffer.key, &in_buffer.val1, in_buffer.val2, in_buffer.val3);
             if (i==m-1){
@@ -67,6 +69,7 @@ int init(mqd_t qd_server,mqd_t qd_client){
             }
         }
     }
+    return 1;
 }
 
 
