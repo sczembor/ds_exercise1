@@ -67,35 +67,33 @@ int main (int argc, char **argv)
         scanf("%i", &mes1.type);
         switch (mes1.type) {
             case 1://init
-                printf("message sent");  //init function in the library
+                //printf("message sent");  //init function in the library
                 check=init(qd_server,qd_client,mes1);
+                printf("function returned:%i\n",check);
                 break;
             case 2://set_value
                 check=set_value(qd_server,qd_client,mes1);
+                printf("function returned:%i\n",check);
                 break;
             case 3://get_value
-                printf("key:");
-                scanf("%s",&mes1.key);
+                check=get_value(qd_server,qd_client,mes1);
+                printf("function returned:%i\n",check);
                 break;
             case 4://modify value
-                printf("key:");
-                scanf("%s",&mes1.key);
-                printf("value1:");
-                scanf("%s",&mes1.val1);
-                printf("value2:");
-                scanf("%d",&mes1.val2);
-                printf("value3:");
-                scanf("%f",&mes1.val3);
+                check=modify_value(qd_server,qd_client,mes1);
+                printf("function returned:%i\n",check);
                 break;
             case 5://delete_key
-                printf("key:");
-                scanf("%s",&mes1.key);
+                check=delete_key(qd_server,qd_client,mes1);
+                printf("function returned:%i\n",check);
                 break;
             case 6://exsist
-                printf("key:");
-                scanf("%s",&mes1.key);
+                check=exist(qd_server,qd_client,mes1);
+                printf("function returned:%i\n",check);
                 break;
             case 7://num_items
+                check=num_items(qd_server,qd_client,mes1);
+                printf("function returned:%i\n",check);
                 break;
             default:
                 perror ("Client: Invalid Arguemnt(function)");
