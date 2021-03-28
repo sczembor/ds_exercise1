@@ -141,7 +141,7 @@ int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs* msg, struct mq_attr a
         
         if (m>0){
             struct msgs in_buffer;
-            if (mq_receive (qd_client, (char*)&msg, MAX_MSG_SIZE, NULL) == -1) {
+            if (mq_receive (qd_client, (char*)msg, MAX_MSG_SIZE, NULL) == -1) {
                 perror ("Server: mq_receive");
                 return (-1);
             }
