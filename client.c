@@ -62,7 +62,7 @@ int main (int argc, char **argv)
         }
         printf("opening client queue\n");
         if ((qd_client = mq_open (client_queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
-            perror ("Server: mq_open (server)");
+            perror ("Client: mq_open (client)");
             exit (1);
         }
         switch (mes1.type) {
