@@ -69,17 +69,9 @@ int main (int argc, char **argv)
             case 1://init
                 printf("message sent");  //init function in the library
                 int check=init(qd_server,qd_client,mes1);
-                printf("not smacked\n");
                 break;
             case 2://set_value
-                printf("key:");
-                scanf("%s",&mes1.key);
-                printf("value1:");
-                scanf("%s",&mes1.val1);
-                printf("value2:");
-                scanf("%d",&mes1.val2);
-                printf("value3:");
-                scanf("%f",&mes1.val3);
+                int check=set_value(qd_server,qd_client,mes1);
                 break;
             case 3://get_value
                 printf("key:");
