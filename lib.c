@@ -187,7 +187,7 @@ int modify_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg){
     return -1;
 }
 
-int delete_key(mqd_t qd_server,mqd_t qd_client,struct msgs msg){){
+int delete_key(mqd_t qd_server,mqd_t qd_client,struct msgs msg){
     struct mq_attr attr;
     
     msg.type=5;
@@ -224,7 +224,7 @@ int delete_key(mqd_t qd_server,mqd_t qd_client,struct msgs msg){){
     return -1;
 }
 
-int exist(mqd_t qd_server,mqd_t qd_client,struct msgs msg){){
+int exist(mqd_t qd_server,mqd_t qd_client,struct msgs msg){
     struct mq_attr attr;
     
     msg.type=6;
