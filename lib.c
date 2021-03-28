@@ -31,10 +31,6 @@ struct msgs{
 int init(mqd_t qd_server,mqd_t qd_client,struct msgs msg){
     
     struct mq_attr attr;
-    attr.mq_flags = 0;
-    attr.mq_maxmsg = MAX_MESSAGES;
-    attr.mq_msgsize = MAX_MSG_SIZE;
-    attr.mq_curmsgs = 0;
     
     msg.type=1;
     

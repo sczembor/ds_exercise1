@@ -109,6 +109,7 @@ int main (int argc, char **argv)
                 exit (1);
                 break;
         }
+        printf("still not smacked\n");
         //ENDIN HERE ------------------------------------------------
     }
     
