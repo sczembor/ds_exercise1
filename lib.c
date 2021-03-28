@@ -42,7 +42,7 @@ int init(mqd_t qd_server,mqd_t qd_client,struct msgs msg){
         perror("Error in sending msg");
         return (-1);
     }
-   
+    return 0;
     while(1){
         if (mq_getattr(qd_client, &attr) == -1){
             perror("mq_getattr");
