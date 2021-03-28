@@ -109,36 +109,6 @@ int main (int argc, char **argv)
                 exit (1);
                 break;
         }
-        if (mes1.type!=0){ //This needs to be inside each function  STARTIN HERE----------------------------------------------------------------
-            int msg;
-            printf("Sending message\n");
-            msg=mq_send(qd_server,(const char *)&mes1,sizeof(mes1)+1,0);
-            printf ("Client: message sent: %s,%s,%d,%f\n",&mes1.key, &mes1.val1, mes1.val2, mes1.val3);
-            if (msg < 0) {
-                perror("Error in sending msg");
-                exit(1);
-            }
-            int mes_rec=0;
-            while(mes_rec==0){
-                if (mq_getattr(qd_client, &attr) == -1)
-                    perror("mq_getattr");
-                int m=attr.mq_curmsgs;
-                
-                //printf("the number of new messages is %i",m);
-                
-                for (int i=0;i<m;i++){
-                    struct msgs in_buffer;
-                    if (mq_receive (qd_client, (char*)&in_buffer, MAX_MSG_SIZE, NULL) == -1) {
-                        perror ("Server: mq_receive");
-                        exit (1);
-                    }
-                    printf ("Client: message received: type:%i, %s,%s,%i,%f\n",in_buffer.type, &in_buffer.key, &in_buffer.val1, in_buffer.val2, in_buffer.val3);
-                    if (i==m-1){
-                        mes_rec=1;
-                    }
-                }
-            }
-        }
         //ENDIN HERE ------------------------------------------------
     }
     
