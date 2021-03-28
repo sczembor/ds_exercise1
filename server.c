@@ -14,7 +14,7 @@
 #include <errno.h>
 #include <pthread.h>
 #include <signal.h>
-#include "lib.h"
+#include "keys.h"
 
 #define QUEUE_PERMISSIONS 0660
 #define MAX_MESSAGES 10

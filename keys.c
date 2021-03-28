@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <errno.h>
-#include "lib.h"
+#include "keys.h"
 
 #define QUEUE_PERMISSIONS 0660
 #define MAX_MESSAGES 10
