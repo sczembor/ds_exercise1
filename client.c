@@ -47,11 +47,6 @@ int main (int argc, char **argv)
     attr.mq_msgsize = MAX_MSG_SIZE;
     attr.mq_curmsgs = 0;
     
-    printf("opening client queue\n");
-    if ((qd_client = mq_open (client_queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
-        perror ("Server: mq_open (server)");
-        exit (1);
-    }
     
     
     char buffer[MAX_MSG_SIZE],buffer1[MAX_MSG_SIZE];
@@ -63,6 +58,11 @@ int main (int argc, char **argv)
         printf("opening server queue\n");
         if ((qd_server = mq_open ("/server-queue", O_WRONLY)) == -1) {
             perror ("Client: mq_open (server)");
+            exit (1);
+        }
+        printf("opening client queue\n");
+        if ((qd_client = mq_open (client_queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
+            perror ("Server: mq_open (server)");
             exit (1);
         }
         switch (mes1.type) {
@@ -102,6 +102,7 @@ int main (int argc, char **argv)
         }
         printf("still not smacked\n");
         mq_close(qd_server);
+        mq_close(qd_client);
         //ENDIN HERE ------------------------------------------------
     }
     
