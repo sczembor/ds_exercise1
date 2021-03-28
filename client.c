@@ -38,7 +38,7 @@ int main (int argc, char **argv)
     mqd_t qd_server, qd_client;
     
     sprintf (&mes1.queue_name, "/client_num-%d", getpid ());
-    sprintf (client_queue_name, "%s",&mes1.queue_name);
+    sprintf (client_queue_name, "%s",mes1.queue_name);
     
     
     struct mq_attr attr;
