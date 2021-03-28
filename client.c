@@ -37,13 +37,6 @@ int main (int argc, char **argv)
     char client_queue_name [64];
     mqd_t qd_server, qd_client;
     
-    printf("opening client queue\n");
-    sprintf (&mes1.queue_name, "/client_num-%d", getpid ());
-    sprintf (client_queue_name, "%s",mes1.queue_name);
-    if ((qd_client = mq_open (client_queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
-        perror ("Client: mq_open (client)");
-        exit (1);
-    }
     
     
     struct mq_attr attr;
@@ -51,6 +44,16 @@ int main (int argc, char **argv)
     attr.mq_maxmsg = MAX_MESSAGES;
     attr.mq_msgsize = MAX_MSG_SIZE;
     attr.mq_curmsgs = 0;
+    
+    
+    
+    printf("opening client queue\n");
+    sprintf (&mes1.queue_name, "/client_num-%d", getpid ());
+    sprintf (client_queue_name, "%s",mes1.queue_name);
+    if ((qd_client = mq_open (client_queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
+        perror ("Client: mq_open (client)");
+        exit (1);
+    }
     
     
     
