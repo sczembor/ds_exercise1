@@ -47,16 +47,6 @@ int main (int argc, char **argv)
     
     
     
-    printf("opening client queue\n");
-    sprintf (&mes1.queue_name, "/client_num-%d", getpid ());
-    sprintf (client_queue_name, "%s",mes1.queue_name);
-    if ((qd_client = mq_open (client_queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
-        perror ("Client: mq_open (client)");
-        exit (1);
-    }
-    
-    
-    
     char buffer[MAX_MSG_SIZE],buffer1[MAX_MSG_SIZE];
     int err = 0;
     int n,check;
@@ -68,6 +58,14 @@ int main (int argc, char **argv)
             perror ("Client: mq_open (server)");
             exit (1);
         }
+        printf("opening client queue\n");
+        sprintf (&mes1.queue_name, "/client_num-%d", getpid ());
+        sprintf (client_queue_name, "%s",mes1.queue_name);
+        if ((qd_client = mq_open (client_queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
+            perror ("Client: mq_open (client)");
+            exit (1);
+        }
+
         switch (mes1.type) {
             case 1://init
                 //printf("message sent");  //init function in the library
@@ -105,6 +103,7 @@ int main (int argc, char **argv)
         }
         printf("still not smacked\n");
         mq_close(qd_server);
+        mq_close(qd_client);
         //ENDIN HERE ------------------------------------------------
     }
     

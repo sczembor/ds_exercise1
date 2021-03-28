@@ -109,6 +109,7 @@ void manage_request (mqd_t *s) {
     }
     printf ("2Server: message sent back: type:%i, %s,%s,%i,%f\n",in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     mqd_t qd_client;
+    printf("in_buffer.queue_name is %s\n",in_buffer.queue_name);
     if ((qd_client = mq_open (in_buffer.queue_name, O_WRONLY)) == -1) {
         perror ("Client: mq_open (client)");
         exit (1);
