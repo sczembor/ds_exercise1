@@ -53,13 +53,12 @@ int init(mqd_t qd_server,mqd_t qd_client,struct msgs msg){
             
         if (m>0){
             struct msgs in_buffer;
-            if (mq_receive (qd_client, (char*)&in_buffer, MAX_MSG_SIZE, NULL) == -1) {
+            if (mq_receive (qd_client, (char*)&msg, MAX_MSG_SIZE, NULL) == -1) {
                 perror ("Server: mq_receive");
                 return (-1);
             }
-            return 0;
             printf ("Client: message received: type:%i, %s,%s,%i,%f\n",in_buffer.type, &in_buffer.key, &in_buffer.val1, in_buffer.val2, in_buffer.val3);
-            if (in_buffer.type==0){
+            if (msg.type==0){
                 printf("0 returned \n");
                 return 0;
             }
