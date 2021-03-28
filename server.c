@@ -70,7 +70,7 @@ void manage_request (mqd_t *s) {
     if(pHead!=NULL)
     {
         printf("wartość pHead->value2 zaraz po odebraniu wiadomości:%d\n", pHead->value2);
-        printf("wartość in_buffer.value2 zaraz po odebraniu wiadomości:%d\n", &in_buffer.value2);
+        printf("wartość in_buffer.value2 zaraz po odebraniu wiadomości:%d\n", in_buffer.value2);
     }
     else
     {
