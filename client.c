@@ -102,7 +102,6 @@ int main (int argc, char **argv)
                 exit (1);
                 break;
         }
-        printf("still not smacked\n");
         mq_close(qd_server);
         mq_close(qd_client);
         //ENDIN HERE ------------------------------------------------
