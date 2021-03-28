@@ -38,9 +38,7 @@ int num_items(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr att
 
 
 int init(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr){
-    
-   // printf("msg.queue_name is %s\n",msg.queue_name);
-    printf("wartość msg.queue_name:%s\n",msg.queue_name);
+        
     msg.type=1;
     
     int message;
@@ -58,7 +56,6 @@ int init(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr){
         }
         int m=attr.mq_curmsgs;
             
-            //printf("the number of new messages is %i",m);
             
         if (m>0){
             struct msgs in_buffer;
@@ -100,7 +97,6 @@ int set_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr att
         }
         int m=attr.mq_curmsgs;
         
-        //printf("the number of new messages is %i",m);
         
         if (m>0){
             struct msgs in_buffer;
@@ -137,7 +133,6 @@ int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs* msg, struct mq_attr a
         }
         int m=attr.mq_curmsgs;
         
-        //printf("the number of new messages is %i",m);
         
         if (m>0){
             struct msgs in_buffer;
@@ -145,7 +140,6 @@ int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs* msg, struct mq_attr a
                 perror ("Server: mq_receive");
                 return (-1);
             }
-            printf ("Client: message recived: %s,%s,%d,%f\n",&msg->key, &msg->val1, msg->val2, msg->val3);
             return msg->type;
         }
     }
@@ -180,7 +174,6 @@ int modify_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr 
         }
         int m=attr.mq_curmsgs;
         
-        //printf("the number of new messages is %i",m);
         
         if (m>0){
             struct msgs in_buffer;

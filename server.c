@@ -67,16 +67,6 @@ void manage_request (mqd_t *s) {
         exit (1);
     }
     printf ("Server: message recived: type:%i, %s,%s,%i,%f, %s\n",in_buffer.type,in_buffer.key, in_buffer.value1, in_buffer.value2, in_buffer.value3, in_buffer.queue_name);
-    if(pHead!=NULL)
-    {
-        printf("wartość pHead->value2 zaraz po odebraniu wiadomości:%i\n", pHead->key);
-        printf("wartość in_buffer.value2 zaraz po odebraniu wiadomości:%i\n", in_buffer.key);
-    }
-    else
-    {
-        printf("pHead jest NUllEM \n");
-    }
-    //char* key=in_buffer.key;
     if(in_buffer.type == 1)//init
     {
         if(pHead ==NULL)
@@ -87,10 +77,9 @@ void manage_request (mqd_t *s) {
     }
     else if(in_buffer.type == 2)//set_value
     {
-        if(searchList(&in_buffer.key)==0){
-            printf("im am in if statement for 2");
+        if(searchList(&in_buffer.key)==0)
+        {
             in_buffer.type = addNode(&in_buffer.key,&in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
-            printf("after invoke of addNode");
         }
         else
         {
@@ -122,9 +111,7 @@ void manage_request (mqd_t *s) {
     }
     else if(in_buffer.type == 6)//exsist
     {
-        printf("in buffer key przed wejsciem do funkcji %s\n",&in_buffer.key);
         in_buffer.type = searchList(&in_buffer.key);
-        printf("zwrociło się z funkcji to: %d",in_buffer.type);
     }
     else if(in_buffer.type == 7)//num_items
     {
@@ -137,7 +124,6 @@ void manage_request (mqd_t *s) {
     }
     printf ("2Server: message sent back: type:%i, %s,%s,%i,%f\n",in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     mqd_t qd_client;
-    printf("in_buffer.queue_name is %s\n",&in_buffer.queue_name);
     if ((qd_client = mq_open (in_buffer.queue_name, O_WRONLY)) == -1) {
         perror ("Client: mq_open (client)");
         exit (1);
@@ -177,8 +163,7 @@ int main(int argc, char **arv)
     attr.mq_msgsize = MAX_MSG_SIZE;
     attr.mq_curmsgs = 0;
     
-    int clear = mq_unlink("/server-queue");
-    printf("clearing queue results:%d", clear);
+    mq_unlink("/server-queue");
     
     printf("opening queue\n");
     if ((qd_server = mq_open ("/server-queue", O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
@@ -219,10 +204,7 @@ int main(int argc, char **arv)
 int addNode(char* key, char* value1, int* value2, float* value3)
 {
     struct Element* new = (struct Element*)malloc(sizeof(struct Element));
-    printf("im am in addNode function\n");
     strcpy(new->key,key);
-    printf("after strcpy\n");
-    //new->key = key;
     strcpy(new->value1,value1);
     new->value2 = *value2;
     new->value3 = *value3;
@@ -243,15 +225,8 @@ int deleteList()
 int searchList(char* _key)
 {
     struct Element* tmp = pHead;
-    printf("all good\n");
     while(tmp != NULL)
     {
-        printf("im in searchlist while loop\n");
-        printf("wartość key:%s\n", _key);
-        printf("wartość tmp->key:%s\n",tmp->key);
-        printf("im in searchlist while loop\n");
-        int i = strcmp(_key, tmp->key);
-        printf("wartosc porównania: %d\n",i);
         if(strcmp(_key, tmp->key) == 0)
             return 1;
         tmp = tmp->pNext;

@@ -51,7 +51,7 @@ int main (int argc, char **argv)
     int err = 0;
     int n,check;
     while (err != -1) {
-        printf("1. init()\n2.set_value()\n3.get_value()\n4.modify_value()\n5.delete_key()\n6.exsist()\n7.num_items()\nChoose one option(ex. \"1\"):");
+        printf("1.init()\n2.set_value()\n3.get_value()\n4.modify_value()\n5.delete_key()\n6.exsist()\n7.num_items()\nChoose one option(ex. \"1\"):");
         scanf("%i", &mes1.type);
         //printf("opening server queue\n");
         if ((qd_server = mq_open ("/server-queue", O_WRONLY)) == -1) {
@@ -60,9 +60,7 @@ int main (int argc, char **argv)
         }
         //printf("opening client queue\n");
         sprintf (&mes1.queue_name, "/client_num-%d", getpid ());
-        printf("wartość mes1.queue_name:%s\n",mes1.queue_name);
         sprintf (client_queue_name, "%s",mes1.queue_name);
-        printf("wartość client_queue_name:%s\n",client_queue_name);
         if ((qd_client = mq_open (client_queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
             perror ("Client: mq_open (client)");
             exit (1);
