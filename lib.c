@@ -115,7 +115,7 @@ int set_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr att
     
 }
 
-int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg, struct mq_attr attr){
+int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs* msg, struct mq_attr attr){
     
     msg.type=3;
     
