@@ -68,7 +68,7 @@ int main (int argc, char **argv)
         switch (mes1.type) {
             case 1://init
                 printf("message sent");  //init function in the library
-                init(qd_server,qd_client,&mes1);
+                int check=init(qd_server,qd_client,mes1);
                 break;
             case 2://set_value
                 printf("key:");
