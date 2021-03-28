@@ -79,12 +79,11 @@ int set_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg){
     
     int message;
     printf("Sending message\n");
-    message=mq_send(qd_server,(const char *)&msg,sizeof(msg)+1,0);
-    printf ("Client: message sent: %s,%s,%d,%f\n",&msg.key, &msg.val1, msg.val2, msg.val3);
-    if (message < 0) {
-        perror("Error in sending msg");
+    if (mq_send(qd_server,(const char *)&msg,sizeof(msg)+1,0) == -1) {
+        perror ("Client: mq_send");
         return (-1);
     }
+    printf ("Client: message sent: %s,%s,%d,%f\n",&msg.key, &msg.val1, msg.val2, msg.val3);
     while(1){
         if (mq_getattr(qd_client, &attr) == -1){
             perror("mq_getattr");
