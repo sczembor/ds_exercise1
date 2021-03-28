@@ -29,7 +29,7 @@ struct msgs{
 };
 int init(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr);
 int set_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr);
-int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr);
+int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs* msg,struct mq_attr attr);
 int modify_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr);
 int delete_key(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr);
 int exist(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr);

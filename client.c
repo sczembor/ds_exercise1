@@ -80,7 +80,7 @@ int main (int argc, char **argv)
                 printf("function returned:%i\n",check);
                 break;
             case 3://get_value
-                check=get_value(qd_server,qd_client,mes1,attr);
+                check=get_value(qd_server,qd_client,&mes1,attr);
                 printf("function returned:%i\n",check);
                 printf("key:%s\nvalue1:%s,value2:%d\nvalue3:%f\n", mes1.key,mes1.val1,mes1.val2,mes1.val3);
                 break;
