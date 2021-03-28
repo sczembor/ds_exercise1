@@ -65,6 +65,7 @@ int main (int argc, char **argv)
             perror ("Client: mq_open (client)");
             exit (1);
         }
+        printf("mes1.queue_name is %s\n",mes1.queue_name);
 
         switch (mes1.type) {
             case 1://init
