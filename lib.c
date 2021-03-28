@@ -39,7 +39,8 @@ int num_items(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr att
 
 int init(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr){
     
-    printf("msg.queue_name is %s\n",msg.queue_name);
+   // printf("msg.queue_name is %s\n",msg.queue_name);
+    printf("wartość msg.queue_name:%s\n",msg.queue_name);
     msg.type=1;
     
     int message;
