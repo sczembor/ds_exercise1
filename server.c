@@ -244,7 +244,7 @@ int searchList(char* _key)
         printf("wartość key:%s\n", _key);
         printf("wartość tmp->key:%s\n",tmp->key);
         printf("im in searchlist while loop\n");
-        int i = strcmp(wtf, tmp->key);
+        int i = strcmp(_key, tmp->key);
         printf("wartosc porównania: %d\n",i);
         if(strcmp(wtf, tmp->key) == 0)
             return 1;
