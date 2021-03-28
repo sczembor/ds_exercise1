@@ -60,7 +60,9 @@ int main (int argc, char **argv)
         }
         //printf("opening client queue\n");
         sprintf (&mes1.queue_name, "/client_num-%d", getpid ());
+        printf("wartość mes1.queue_name:%s\n",mes1.queue_name);
         sprintf (client_queue_name, "%s",mes1.queue_name);
+        printf("wartość client_queue_name:%s\n",client_queue_name);
         if ((qd_client = mq_open (client_queue_name, O_RDONLY | O_CREAT, QUEUE_PERMISSIONS, &attr)) == -1) {
             perror ("Client: mq_open (client)");
             exit (1);
