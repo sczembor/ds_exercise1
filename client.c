@@ -69,6 +69,7 @@ int main (int argc, char **argv)
             case 1://init
                 printf("message sent");  //init function in the library
                 int check=init(qd_server,qd_client,mes1);
+                printf("not smacked\n");
                 break;
             case 2://set_value
                 printf("key:");
