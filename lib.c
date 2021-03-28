@@ -145,6 +145,7 @@ int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg, struct mq_attr at
                 perror ("Server: mq_receive");
                 return (-1);
             }
+            printf ("Client: message recived: %s,%s,%d,%f\n",&msg.key, &msg.val1, msg.val2, msg.val3);
             return msg.type;
         }
     }
