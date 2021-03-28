@@ -64,18 +64,12 @@ int init(mqd_t qd_server,mqd_t qd_client,struct msgs msg){
 }
 
 int set_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg){
+    
     struct mq_attr attr;
     
     msg.type=2;
     
-    printf("key:");
-    scanf("%s",&msg.key);
-    printf("value1:");
-    scanf("%s",&msg.val1);
-    printf("value2:");
-    scanf("%d",&msg.val2);
-    printf("value3:");
-    scanf("%f",&msg.val3);
+    
     
     int message;
     printf("Sending message\n");
