@@ -72,10 +72,18 @@ void manage_request (mqd_t *s) {
         printf("wartość pHead->key zaraz po odebraniu wiadomości:%s\n", pHead->key);
         printf("wartość in_buffer.key zaraz po odebraniu wiadomości:%\n", &in_buffer.key);
     }
+    else
+    {
+        printf("pHead jest NUllEM \n");
+    }
     //char* key=in_buffer.key;
     if(in_buffer.type == 1)//init
     {
+        if(pHead ==NULL)
+            printf("pHead jest NUllEM  przed inicie\n");
         in_buffer.type = deleteList();
+        if(pHead ==NULL)
+            printf("pHead jest NUllEM  po inicie\n");
     }
     else if(in_buffer.type == 2)//set_value
     {
