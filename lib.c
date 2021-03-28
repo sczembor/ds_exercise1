@@ -117,10 +117,10 @@ int set_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr att
 
 int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs* msg, struct mq_attr attr){
     
-    msg.type=3;
+    msg->type=3;
     
     printf("key:");
-    scanf("%s",&msg.key);
+    scanf("%s",&msg->key);
     
     int message;
     printf("Sending message\n");
@@ -146,7 +146,7 @@ int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs* msg, struct mq_attr a
                 return (-1);
             }
             printf ("Client: message recived: %s,%s,%d,%f\n",&msg->key, &msg->val1, msg->val2, msg->val3);
-            return msg.type;
+            return msg->type;
         }
     }
     return -1;
