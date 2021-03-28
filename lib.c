@@ -28,7 +28,7 @@ struct msgs{
     struct msgs* pNext;
 };
 
-int init(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr;){
+int init(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr){
     
     
     msg.type=1;
@@ -62,7 +62,7 @@ int init(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr;){
     return -1;
 }
 
-int set_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr;){
+int set_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr){
     
     msg.type=2;
     
@@ -105,7 +105,7 @@ int set_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr att
     
 }
 
-int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg, struct mq_attr attr;){
+int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg, struct mq_attr attr){
     
     msg.type=3;
     
@@ -141,7 +141,7 @@ int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg, struct mq_attr at
     return -1;
 }
 
-int modify_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr;){
+int modify_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr){
     
     msg.type=4;
     
@@ -183,7 +183,7 @@ int modify_value(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr 
     return -1;
 }
 
-int delete_key(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr;){
+int delete_key(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr){
     
     msg.type=5;
     
@@ -219,7 +219,7 @@ int delete_key(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr at
     return -1;
 }
 
-int exist(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr;){
+int exist(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr){
     
     msg.type=6;
     
@@ -255,7 +255,7 @@ int exist(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr;){
     return -1;
 }
 
-int num_items(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr;){
+int num_items(mqd_t qd_server,mqd_t qd_client,struct msgs msg,struct mq_attr attr){
     
     msg.type=7;
     
