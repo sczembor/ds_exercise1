@@ -22,8 +22,8 @@
 //STRUCTS ----------------------------
 struct msgs{
     int type;
-    char* key;
-    char* val1;
+    char key[254];
+    char val1[254];
     int val2;
     float val3;
     char queue_name[64];
