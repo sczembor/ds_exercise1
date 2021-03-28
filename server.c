@@ -47,7 +47,7 @@ struct Element* pHead = NULL;
 int addNode(char* key, char* value1, int* value2, float* value3);
 int modifyNode(char* key, char* value1, int* value2, float* value3);
 int deleteList(void);
-int searchList(char* key);
+int searchList(char* _key);
 int deleteElement(char* key);
 struct Element* getValue(char* key);
 int numElements(void);
@@ -67,43 +67,67 @@ void manage_request (mqd_t *s) {
         exit (1);
     }
     printf ("Server: message recived: type:%i, %s,%s,%i,%f\n",in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
+    if(pHead!=NULL)
+    {
+        printf("wartość pHead->key zaraz po odebraniu wiadomości:%s\n", pHead->key);
+        printf("wartość in_buffer.key zaraz po odebraniu wiadomości:%\n", &in_buffer.key);
+    }
     //char* key=in_buffer.key;
-    if(in_buffer.type == 1){
+    if(in_buffer.type == 1)//init
+    {
         in_buffer.type = deleteList();
-    }else if(in_buffer.type == 2){
+    }
+    else if(in_buffer.type == 2)//set_value
+    {
         if(searchList(&in_buffer.key)==0){
             printf("im am in if statement for 2");
             in_buffer.type = addNode(&in_buffer.key,&in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
             printf("after invoke of addNode");
-        }else{
+        }
+        else
+        {
             in_buffer.type = -1;
         }
-    }else if(in_buffer.type == 3){
+    }
+    else if(in_buffer.type == 3)//get_value
+    {
         if(searchList(&in_buffer.key)==1){
             struct Element* tmp = getValue(in_buffer.key);
             in_buffer.value1 = tmp->value1;
             in_buffer.value2 = tmp->value2;
             in_buffer.value3 = tmp->value3;
             in_buffer.type = 0;
-        }else{
+        }
+        else
+        {
             in_buffer.type = -1;
         }
-    }else if(in_buffer.type == 4){
+    }
+    else if(in_buffer.type == 4)//modify_value
+    {
         in_buffer.type = modifyNode(&in_buffer.key, &in_buffer.value1,&in_buffer.value2,&in_buffer.value3);
-    }else if(in_buffer.type == 5){
+    }
+    else if(in_buffer.type == 5)//delete_key
+    {
         //in_buffer.type = deleteElement(&in_buffer.key);
         while(pHead)
         {
             printf("key:%s\nvalue2:%d",pHead->key,pHead->value2);
             pHead = pHead->pNext;
         }
-    }else if(in_buffer.type == 6){
+    }
+    else if(in_buffer.type == 6)//exsist
+    {
         printf("in buffer key przed wejsciem do funkcji %s\n",&in_buffer.key);
         in_buffer.type = searchList(&in_buffer.key);
         printf("zwrociło się z funkcji to: %d",in_buffer.type);
-    }else if(in_buffer.type == 7){
+    }
+    else if(in_buffer.type == 7)//num_items
+    {
         in_buffer.type = numElements();
-    }else{
+    }
+    else//wrong argument
+    {
         in_buffer.type = -1;
         printf("Wrong argument");
     }
@@ -210,14 +234,14 @@ int deleteList()
     }
     return 0;
 }
-int searchList(char* wtf)
+int searchList(char* _key)
 {
     struct Element* tmp = pHead;
     printf("all good\n");
     while(tmp != NULL)
     {
         printf("im in searchlist while loop\n");
-        printf("wartość key:%s\n", wtf);
+        printf("wartość key:%s\n", _key);
         printf("wartość tmp->key:%s\n",tmp->key);
         printf("im in searchlist while loop\n");
         int i = strcmp(wtf, tmp->key);
