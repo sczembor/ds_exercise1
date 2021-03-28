@@ -4,9 +4,19 @@
 //
 //  Created by Jan Ferbr on 18/03/2021.
 //
+#include <mqueue.h>
+#include <netdb.h>
+#include <stdio.h>
+#include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <errno.h>
 #include "lib.h"
+
+#define QUEUE_PERMISSIONS 0660
+#define MAX_MESSAGES 10
+#define MAX_MSG_SIZE 1024
+#define MSG_BUFFER_SIZE MAX_MSG_SIZE + 10
 
 struct msgs{
     int type;
