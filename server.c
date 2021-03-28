@@ -280,7 +280,7 @@ int modifyNode(char* key, char* value1, int* value2, float* value3)
     {
         if(!strcmp(key, tmp->key))
         {
-            tmp->value1 = value1;
+            strcpy(tmp->value1, value1);
             tmp->value2 = *value2;
             tmp->value3 = *value3;
             return 0;
