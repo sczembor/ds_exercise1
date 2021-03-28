@@ -53,11 +53,6 @@ int main (int argc, char **argv)
         exit (1);
     }
     
-    printf("opening server queue\n");
-    if ((qd_server = mq_open ("/server-queue", O_WRONLY)) == -1) {
-        perror ("Client: mq_open (server)");
-        exit (1);
-    }
     
     char buffer[MAX_MSG_SIZE],buffer1[MAX_MSG_SIZE];
     int err = 0;
@@ -65,6 +60,11 @@ int main (int argc, char **argv)
     while (err != -1) {
         printf("1. init()\n2.set_value()\n3.get_value()\n4.modify_value()\n5.delete_key()\n6.exsist()\n7.num_items()\nChoose one option(ex. \"1\"):");
         scanf("%i", &mes1.type);
+        printf("opening server queue\n");
+        if ((qd_server = mq_open ("/server-queue", O_WRONLY)) == -1) {
+            perror ("Client: mq_open (server)");
+            exit (1);
+        }
         switch (mes1.type) {
             case 1://init
                 //printf("message sent");  //init function in the library
@@ -101,6 +101,7 @@ int main (int argc, char **argv)
                 break;
         }
         printf("still not smacked\n");
+        mq_close(qd_server);
         //ENDIN HERE ------------------------------------------------
     }
     
