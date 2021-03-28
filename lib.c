@@ -47,8 +47,8 @@ int init(mqd_t qd_server,mqd_t qd_client){
         perror("Error in sending msg");
         return (-1);
     }
-    int mes_rec=0;
-    while(mes_rec==0){
+   
+    while(1){
         if (mq_getattr(qd_client, &attr) == -1){
             perror("mq_getattr");
             return (-1);
@@ -57,19 +57,23 @@ int init(mqd_t qd_server,mqd_t qd_client){
             
             //printf("the number of new messages is %i",m);
             
-        for (int i=0;i<m;i++){
+        if (m>0){
             struct msgs in_buffer;
             if (mq_receive (qd_client, (char*)&in_buffer, MAX_MSG_SIZE, NULL) == -1) {
                 perror ("Server: mq_receive");
                 return (-1);
             }
             printf ("Client: message received: type:%i, %s,%s,%i,%f\n",in_buffer.type, &in_buffer.key, &in_buffer.val1, in_buffer.val2, in_buffer.val3);
-            if (i==m-1){
-                mes_rec=1;
+            if (in_buffer.type==0){
+                return 0;
+            }
+            else{
+                return -1;
             }
         }
+        
     }
-    return 1;
+    return -1;
 }
 
 
