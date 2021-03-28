@@ -118,12 +118,7 @@ void manage_request (mqd_t *s) {
     }
     else if(in_buffer.type == 5)//delete_key
     {
-        //in_buffer.type = deleteElement(&in_buffer.key);
-        while(pHead)
-        {
-            printf("key:%s\nvalue2:%d",pHead->key,pHead->value2);
-            pHead = pHead->pNext;
-        }
+        in_buffer.type = deleteElement(&in_buffer.key);
     }
     else if(in_buffer.type == 6)//exsist
     {
