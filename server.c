@@ -26,8 +26,8 @@
 //STRUCTS ----------------------------
 struct Element{
     int type;
-    char* key;
-    char* value1;
+    char key[254];
+    char value1[254];
     int value2;
     float value3;
     char queue_name[64];
@@ -223,9 +223,10 @@ int main(int argc, char **arv)
 int addNode(char* key, char* value1, int* value2, float* value3)
 {
     struct Element* new = (struct Element*)malloc(sizeof(struct Element));
-    printf("im am in addNode function");
-    //strcpy(new->key,key);
-    new->key = key;
+    printf("im am in addNode function\n");
+    strcpy(new->key,key);
+    printf("after strcpy\n")
+    //new->key = key;
     new->value1 = value1;
     new->value2 = *value2;
     new->value3 = *value3;
