@@ -224,8 +224,8 @@ int addNode(char* key, char* value1, int* value2, float* value3)
 {
     struct Element* new = (struct Element*)malloc(sizeof(struct Element));
     printf("im am in addNode function");
-    strcpy(new->key,key);
-    //new->key = key;
+    //strcpy(new->key,key);
+    new->key = key;
     new->value1 = value1;
     new->value2 = *value2;
     new->value3 = *value3;
