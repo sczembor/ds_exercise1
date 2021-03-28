@@ -125,7 +125,7 @@ int get_value(mqd_t qd_server,mqd_t qd_client,struct msgs* msg, struct mq_attr a
     int message;
     printf("Sending message\n");
     message=mq_send(qd_server,(const char *)msg,sizeof(msg)+1,0);
-    printf ("Client: message sent: %s,%s,%d,%f, %s\n",&msg->key, &msg->val1, msg->val2, msg->val3, &msg->queue_name);
+    printf ("Client: message sent: %s,%s,%d,%f, %s\n",&msg->key, &msg->val1, msg->val2, msg->val3, msg->queue_name);
     if (message < 0) {
         perror("Error in sending msg");
         return (-1);
