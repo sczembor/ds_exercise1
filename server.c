@@ -69,8 +69,8 @@ void manage_request (mqd_t *s) {
     printf ("Server: message recived: type:%i, %s,%s,%i,%f\n",in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3);
     if(pHead!=NULL)
     {
-        printf("wartość pHead->value2 zaraz po odebraniu wiadomości:%d\n", pHead->value2);
-        printf("wartość in_buffer.value2 zaraz po odebraniu wiadomości:%d\n", in_buffer.value2);
+        printf("wartość pHead->value2 zaraz po odebraniu wiadomości:%i\n", &pHead->key);
+        printf("wartość in_buffer.value2 zaraz po odebraniu wiadomości:%i\n", &&in_buffer.key);
     }
     else
     {
