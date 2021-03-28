@@ -61,17 +61,17 @@ int main (int argc, char **argv)
     
     char buffer[MAX_MSG_SIZE],buffer1[MAX_MSG_SIZE];
     int err = 0;
-    int n;
+    int n,check;
     while (err != -1) {
         printf("1. init()\n2.set_value()\n3.get_value()\n4.modify_value()\n5.delete_key()\n6.exsist()\n7.num_items()\nChoose one option(ex. \"1\"):");
         scanf("%i", &mes1.type);
         switch (mes1.type) {
             case 1://init
                 printf("message sent");  //init function in the library
-                int check=init(qd_server,qd_client,mes1);
+                check=init(qd_server,qd_client,mes1);
                 break;
             case 2://set_value
-                int check=set_value(qd_server,qd_client,mes1);
+                check=set_value(qd_server,qd_client,mes1);
                 break;
             case 3://get_value
                 printf("key:");
