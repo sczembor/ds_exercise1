@@ -28,7 +28,7 @@ struct msgs{
     struct msgs* pNext;
 };
 
-int init(mqd_t qd_server,mqd_t qd client){
+int init(mqd_t qd_server,mqd_t qd_client){
     struct msgs msg;
     
     struct mq_attr attr;
