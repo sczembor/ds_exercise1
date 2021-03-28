@@ -66,7 +66,7 @@ void manage_request (mqd_t *s) {
         perror ("Server: mq_receive");
         exit (1);
     }
-    printf ("Server: message recived: type:%i, %s,%s,%i,%f\n",in_buffer.type,&in_buffer.key, &in_buffer.value1, in_buffer.value2, in_buffer.value3, &in_buffer.queue_name);
+    printf ("Server: message recived: type:%i, %s,%s,%i,%f, %s\n",in_buffer.type,in_buffer.key, in_buffer.value1, in_buffer.value2, in_buffer.value3, in_buffer.queue_name);
     if(pHead!=NULL)
     {
         printf("wartość pHead->value2 zaraz po odebraniu wiadomości:%i\n", pHead->key);
