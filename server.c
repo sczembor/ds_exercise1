@@ -101,7 +101,8 @@ void manage_request (mqd_t *s) {
     {
         if(searchList(&in_buffer.key)==1){
             struct Element* tmp = getValue(in_buffer.key);
-            in_buffer.value1 = tmp->value1;
+            strcpy(in_buffer.value1, tmp->value1);
+            //in_buffer.value1 = tmp->value1;
             in_buffer.value2 = tmp->value2;
             in_buffer.value3 = tmp->value3;
             in_buffer.type = 0;
