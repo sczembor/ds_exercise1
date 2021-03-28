@@ -68,31 +68,31 @@ int main (int argc, char **argv)
         switch (mes1.type) {
             case 1://init
                 //printf("message sent");  //init function in the library
-                check=init(qd_server,qd_client,mes1);
+                check=init(qd_server,qd_client,mes1,attr);
                 printf("function returned:%i\n",check);
                 break;
             case 2://set_value
-                check=set_value(qd_server,qd_client,mes1);
+                check=set_value(qd_server,qd_client,mes1,attr);
                 printf("function returned:%i\n",check);
                 break;
             case 3://get_value
-                check=get_value(qd_server,qd_client,mes1);
+                check=get_value(qd_server,qd_client,mes1,attr);
                 printf("function returned:%i\n",check);
                 break;
             case 4://modify value
-                check=modify_value(qd_server,qd_client,mes1);
+                check=modify_value(qd_server,qd_client,mes1,attr);
                 printf("function returned:%i\n",check);
                 break;
             case 5://delete_key
-                check=delete_key(qd_server,qd_client,mes1);
+                check=delete_key(qd_server,qd_client,mes1,attr);
                 printf("function returned:%i\n",check);
                 break;
             case 6://exsist
-                check=exist(qd_server,qd_client,mes1);
+                check=exist(qd_server,qd_client,mes1,attr);
                 printf("function returned:%i\n",check);
                 break;
             case 7://num_items
-                check=num_items(qd_server,qd_client,mes1);
+                check=num_items(qd_server,qd_client,mes1,attr);
                 printf("function returned:%i\n",check);
                 break;
             default:
